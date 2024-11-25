@@ -8,7 +8,7 @@ import org.example.practica_final_hibernate.Util.R;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(R.getResource("Login.fxml"));
