@@ -1,3 +1,6 @@
-.anchor{
--fx-background-image:url("images/FondoIES.jpg");
+.root{
+   -fx-background-image: url("images/FondoIES.jpg");
+   -fx-background-size: contain;
+   -fx-background-repeat: no-repeat;
+   -fx-background-position: center;
 }
