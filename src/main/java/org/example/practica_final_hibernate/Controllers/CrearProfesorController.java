@@ -1,4 +1,4 @@
 package org.example.practica_final_hibernate.Controllers;
 
-public class ListarAlumnos {
+public class CrearProfesorController {
 }
