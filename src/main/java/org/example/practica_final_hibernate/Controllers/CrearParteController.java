@@ -2,15 +2,16 @@ package org.example.practica_final_hibernate.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import org.example.practica_final_hibernate.DAO.ParteDAO;
 import org.example.practica_final_hibernate.Model.Grupo;
 import org.example.practica_final_hibernate.Model.Profesor;
 
-public class CrearParteController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CrearParteController implements Initializable {
 
     @FXML
     private Button NaranjaBtt;
@@ -40,7 +41,13 @@ public class CrearParteController {
     private ComboBox<Profesor> profesorCB;
 
     @FXML
+    private Label tipoParteLB;
+
+    private ParteDAO parteDAO = new ParteDAO();
+
+    @FXML
     void onCrear(ActionEvent event) {
+        String expendiente = expAlumnoTF.getText();
 
     }
 
@@ -59,5 +66,9 @@ public class CrearParteController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }
 

@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParteDAO implements DAO<Parte>{
+
     SessionFactory factory;
     public ParteDAO(){
         factory = HibernateUtils.getSessionFactory();
     }
+
     @Override
     public void insertar(Parte objeto) {
         Session session = factory.openSession();
