@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import org.example.practica_final_hibernate.Model.Grupo;
 import org.example.practica_final_hibernate.Model.Profesor;
 
 public class CrearParteController {
@@ -33,7 +34,7 @@ public class CrearParteController {
     private DatePicker fechaPicker;
 
     @FXML
-    private ComboBox<String> nombreGrupoCB;
+    private ComboBox<Grupo> nombreGrupoCB;
 
     @FXML
     private ComboBox<Profesor> profesorCB;
