@@ -1,7 +1,6 @@
 package org.example.practica_final_hibernate.DAO;
 
-import org.example.practica_final_hibernate.Model.Alumno;
-import org.example.practica_final_hibernate.Model.Curso;
+import org.example.practica_final_hibernate.Model.Grupo;
 import org.example.practica_final_hibernate.Util.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,13 +8,13 @@ import org.hibernate.SessionFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CursoDAO implements DAO<Curso> {
+public class GrupoDAO implements DAO<Grupo> {
     SessionFactory factory;
-    public CursoDAO(){
+    public GrupoDAO(){
         factory = HibernateUtils.getSessionFactory();
     }
     @Override
-    public void insertar(Curso objeto) {
+    public void insertar(Grupo objeto) {
         Session session = factory.openSession();
         try{
             session.beginTransaction();
@@ -29,7 +28,7 @@ public class CursoDAO implements DAO<Curso> {
     }
 
     @Override
-    public void modificar(Curso objeto) {
+    public void modificar(Grupo objeto) {
         Session session = factory.openSession();
         try{
             session.beginTransaction();
@@ -43,7 +42,7 @@ public class CursoDAO implements DAO<Curso> {
     }
 
     @Override
-    public void eliminar(Curso objeto) {
+    public void eliminar(Grupo objeto) {
         Session session = factory.openSession();
         try{
             session.beginTransaction();
@@ -57,11 +56,11 @@ public class CursoDAO implements DAO<Curso> {
     }
 
     @Override
-    public List<Curso> listar() {
-        List<Curso> lista = new ArrayList<>();
+    public List<Grupo> listar() {
+        List<Grupo> lista = new ArrayList<>();
         try{
             Session session = factory.openSession();
-            lista = session.createQuery(" from Curso", Curso.class).getResultList();
+            lista = session.createQuery(" from Curso", Grupo.class).getResultList();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -69,7 +68,7 @@ public class CursoDAO implements DAO<Curso> {
     }
 
     @Override
-    public Curso buscar() {
+    public Grupo buscar() {
         return null;
     }
 }

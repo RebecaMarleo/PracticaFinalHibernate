@@ -1,10 +1,12 @@
 package org.example.practica_final_hibernate.Model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "profesores")
-public class Profesor {
+public class Profesor implements Serializable {
     @Id
     @Column(name = "id_profesor")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -14,6 +16,9 @@ public class Profesor {
     private String tipo;
     private String numero_asignado;
     private String contrasena;
+
+    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
+    private List<Parte> partes;
 
     public Profesor() {
     }

@@ -1,6 +1,102 @@
 package org.example.practica_final_hibernate.Model;
 
-public class Parte {
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public class Parte implements Serializable {
+    @Id
+    @Column(name = "id_parte")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
+
+    private String descripcion;
+
+    private String sancion;
+
+    private LocalDate fecha;
+
+    private LocalTime hora;
+
+    @ManyToOne
+    @JoinColumn(name="id_alum", referencedColumnName = "id_alum")
+    private Alumno alumno;
+
+    @ManyToOne
+    @JoinColumn(name="id_grupo", referencedColumnName = "id_grupo")
+    private Grupo grupo;
+
+    @ManyToOne
+    @JoinColumn(name="id_profesor", referencedColumnName = "id_profesor")
+    private Profesor profesor;
+
+    public Parte() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getSancion() {
+        return sancion;
+    }
+
+    public void setSancion(String sancion) {
+        this.sancion = sancion;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
+    }
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
 }
 /*
 DROP TABLE IF EXISTS `gestionpartes`.`partes_incidencia`;
