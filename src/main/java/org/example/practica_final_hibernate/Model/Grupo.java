@@ -12,7 +12,6 @@ public class Grupo implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
-    @Id
     @Column(name = "nombre_grupo")
     private String nombre;
 

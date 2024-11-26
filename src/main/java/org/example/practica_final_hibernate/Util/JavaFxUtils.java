@@ -9,21 +9,23 @@ import javafx.stage.Stage;
 import java.util.Optional;
 
 public class JavaFxUtils {
+    /*Función que cambia entre escenas*/
     public static void abrirPantalla(Stage stage, String ruta, String titulo){
         try{
-            FXMLLoader loader = new FXMLLoader(R.getResource(ruta));
-            Scene scene = new Scene(loader.load());
-            stage.setTitle(titulo);
-            stage.setScene(scene);
-        }catch (Exception e){
+            FXMLLoader loader = new FXMLLoader(R.getResource(ruta)); //Hace un loader con la ruta que recibe por parámetro
+            Scene scene = new Scene(loader.load()); //Carga el loader en una escena
+            stage.setTitle(titulo); //Cambia el título
+            stage.setScene(scene);  //Cambia la escena
+        }catch (Exception e){ //Por si hay un fallo cargando el XML:
             mostrarAlert(Alert.AlertType.ERROR, "No se ha podido acceder a la ruta especificada", "Error de FXML");
         }
     }
+    /*Función que abre una Alerta en pantalla*/
     public static Optional<ButtonType> mostrarAlert(Alert.AlertType alertType, String mensaje, String titulo){
-        Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
-        alert.setContentText(mensaje);
-        alert.setHeaderText(null);
-        return alert.showAndWait();
+        Alert alert = new Alert(alertType); //Ponemos el tipo de alerta
+        alert.setTitle(titulo); //Se pone el titulo
+        alert.setContentText(mensaje); //Se pone el mensaje
+        alert.setHeaderText(null); //Alert sin cabecera
+        return alert.showAndWait(); //Devuelve el botón que pulse el usuario (Por si acaso necesitamos hacer confirmaciones)
     }
 }

@@ -104,12 +104,12 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- Inserción de profesores en la tabla 'profesores'
-INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Juan Perez', 'jefe_de_estudios', 1001, 'ce5ca673d13b36118d54a7cf13aeb0ca012383bf771e713421b4d1fd841f539a');
-INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Alberto Perez', 'profesor', 1002, 'ce5ca673d13b36118d54a7cf13aeb0ca012383bf771e713421b4d1fd841f539a');
-INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Maria Lopez', 'profesor', 1003, '1b18033d8286c4efc126b8a131e85db079c731aca276c9204b6221ca00fedbb0');
-INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Carlos Sanchez', 'profesor', 1004, '1b18033d8286c4efc126b8a131e85db079c731aca276c9204b6221ca00fedbb0');
-INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Laura Gomez', 'profesor', 1005, '1b18033d8286c4efc126b8a131e85db079c731aca276c9204b6221ca00fedbb0');
-INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Fernando Ruiz', 'profesor', 1006, '1b18033d8286c4efc126b8a131e85db079c731aca276c9204b6221ca00fedbb0');
+INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Juan Perez', 'Jefe de Estudios', 1001, 'ce5ca673d13b36118d54a7cf13aeb0ca012383bf771e713421b4d1fd841f539a');
+INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Alberto Perez', 'Profesor', 1002, 'ce5ca673d13b36118d54a7cf13aeb0ca012383bf771e713421b4d1fd841f539a');
+INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Maria Lopez', 'Profesor', 1003, '1b18033d8286c4efc126b8a131e85db079c731aca276c9204b6221ca00fedbb0');
+INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Carlos Sanchez', 'Profesor', 1004, '1b18033d8286c4efc126b8a131e85db079c731aca276c9204b6221ca00fedbb0');
+INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Laura Gomez', 'Profesor', 1005, '1b18033d8286c4efc126b8a131e85db079c731aca276c9204b6221ca00fedbb0');
+INSERT INTO profesores (nombre, tipo, numero_asignado, contrasena) VALUES('Fernando Ruiz', 'Profesor', 1006, '1b18033d8286c4efc126b8a131e85db079c731aca276c9204b6221ca00fedbb0');
 
 -- Inserción de grupos en la tabla 'grupos'
 INSERT INTO grupos (nombre_grupo) VALUES('1º ESO A');
@@ -144,23 +144,23 @@ INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente
 INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(4, 3, 'Isabel Hernández', '1020');
 
 -- Inserción de partes de incidencia en la tabla 'partes_incidencia'
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(1, 1, 1, 1, 'Incidente menor', '2024-01-01', '09:00', 'Advertencia');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(2, 1, 2, 6, 'Incidente moderado', '2024-01-02', '10:00', 'Suspensión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(3, 2, 3, 12, 'Incidente grave', '2024-01-03', '11:00', 'Expulsión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(4, 2, 4, 1, 'Incidente menor', '2024-01-04', '12:00', 'Advertencia');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(5, 3, 5, 6, 'Incidente moderado', '2024-01-05', '13:00', 'Suspensión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(6, 3, 6, 12, 'Incidente grave', '2024-01-06', '14:00', 'Expulsión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(7, 4, 1, 1, 'Incidente menor', '2024-01-07', '15:00', 'Advertencia');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(8, 4, 2, 6, 'Incidente moderado', '2024-01-08', '16:00', 'Suspensión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(9, 5, 3, 12, 'Incidente grave', '2024-01-09', '17:00', 'Expulsión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(10, 5, 4, 1, 'Incidente menor', '2024-01-10', '18:00', 'Advertencia');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(11, 6, 5, 6, 'Incidente moderado', '2024-01-11', '09:00', 'Suspensión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(12, 6, 6, 12, 'Incidente grave', '2024-01-12', '10:00', 'Expulsión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(13, 7, 1, 1, 'Incidente menor', '2024-01-13', '11:00', 'Advertencia');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(14, 7, 2, 6, 'Incidente moderado', '2024-01-14', '12:00', 'Suspensión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(15, 8, 3, 12, 'Incidente grave', '2024-01-15', '13:00', 'Expulsión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(16, 8, 4, 1, 'Incidente menor', '2024-01-16', '14:00', 'Advertencia');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(17, 1, 5, 6, 'Incidente moderado', '2024-01-17', '15:00', 'Suspensión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(18, 2, 6, 12, 'Incidente grave', '2024-01-18', '16:00', 'Expulsión');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(19, 3, 1, 1, 'Incidente menor', '2024-01-19', '17:00', 'Advertencia');
-INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, id_punt_partes, descripcion, fecha, hora, sancion) VALUES(20, 4, 2, 6, 'Incidente moderado', '2024-01-20', '18:00', 'Suspensión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(1, 1, 1, 'Incidente menor', '2024-01-01', '09:00', 'Advertencia');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(2, 1, 2, 'Incidente moderado', '2024-01-02', '10:00', 'Suspensión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(3, 2, 3, 'Incidente grave', '2024-01-03', '11:00', 'Expulsión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(4, 2, 4, 'Incidente menor', '2024-01-04', '12:00', 'Advertencia');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(5, 3, 5, 'Incidente moderado', '2024-01-05', '13:00', 'Suspensión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(6, 3, 6, 'Incidente grave', '2024-01-06', '14:00', 'Expulsión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(7, 4, 1, 'Incidente menor', '2024-01-07', '15:00', 'Advertencia');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(8, 4, 2, 'Incidente moderado', '2024-01-08', '16:00', 'Suspensión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(9, 5, 3, 'Incidente grave', '2024-01-09', '17:00', 'Expulsión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(10, 5, 4, 'Incidente menor', '2024-01-10', '18:00', 'Advertencia');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(11, 6, 5, 'Incidente moderado', '2024-01-11', '09:00', 'Suspensión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(12, 6, 6, 'Incidente grave', '2024-01-12', '10:00', 'Expulsión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(13, 7, 1, 'Incidente menor', '2024-01-13', '11:00', 'Advertencia');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(14, 7, 2, 'Incidente moderado', '2024-01-14', '12:00', 'Suspensión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(15, 8, 3, 'Incidente grave', '2024-01-15', '13:00', 'Expulsión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(16, 8, 4, 'Incidente menor', '2024-01-16', '14:00', 'Advertencia');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(17, 1, 5, 'Incidente moderado', '2024-01-17', '15:00', 'Suspensión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(18, 2, 6, 'Incidente grave', '2024-01-18', '16:00', 'Expulsión');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(19, 3, 1, 'Incidente menor', '2024-01-19', '17:00', 'Advertencia');
+INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion) VALUES(20, 4, 2, 'Incidente moderado', '2024-01-20', '18:00', 'Suspensión');

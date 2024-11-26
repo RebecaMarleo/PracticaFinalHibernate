@@ -5,7 +5,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost/compras</property>
+		<property name="connection.url">jdbc:mysql://localhost/gestionpartes</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">toor</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
@@ -14,5 +14,6 @@
 		<mapping class="org.example.practica_final_hibernate.Model.Alumno"/>
 		<mapping class="org.example.practica_final_hibernate.Model.Parte"/>
 		<mapping class="org.example.practica_final_hibernate.Model.Profesor"/>
+		<mapping class="org.example.practica_final_hibernate.Model.Grupo"/>
 	</session-factory>
 </hibernate-configuration>

@@ -1,6 +1,7 @@
 package org.example.practica_final_hibernate.Util;
 
 import org.example.practica_final_hibernate.Model.Alumno;
+import org.example.practica_final_hibernate.Model.Grupo;
 import org.example.practica_final_hibernate.Model.Parte;
 import org.example.practica_final_hibernate.Model.Profesor;
 import org.hibernate.Session;
@@ -20,7 +21,7 @@ public class HibernateUtils {
         cfg.addAnnotatedClass(Alumno.class);
         cfg.addAnnotatedClass(Profesor.class);
         cfg.addAnnotatedClass(Parte.class);
-
+        cfg.addAnnotatedClass(Grupo.class);
         //configuration.addAnnotatedClass(Clase1.class);
         //configuration.addAnnotatedClass(Clase2.class);
         //configuration.addAnnotatedClass(Clase3.class);

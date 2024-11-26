@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="mainPane" prefHeight="570.0" prefWidth="752.0" stylesheets="@mainStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.practica_final_hibernate.Controllers.LogInController">
+<AnchorPane fx:id="mainPane" prefHeight="538.0" prefWidth="752.0" stylesheets="@mainStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.practica_final_hibernate.Controllers.LogInController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="286.0" layoutX="255.0" layoutY="114.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeType="OUTSIDE" strokeWidth="0.0" width="242.0" />
       <Label layoutX="338.0" layoutY="142.0" text="Iniciar Sesión" />

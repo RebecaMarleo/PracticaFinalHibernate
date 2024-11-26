@@ -32,18 +32,24 @@ public class LogInController implements Initializable {
 
     @FXML
     void logInClick(ActionEvent event) {
-        if (numTF.getText().isEmpty() || passTF.getText().isEmpty()){
+        /*
+        REQUISITOS PARA EL LOGIN:
+            1. Que los campos estén rellenos
+            2. Que el número de referencia aparezca en la base de datos
+            3. Que la contraseña coincida con la del profesor
+         */
+        if (numTF.getText().isEmpty() || passTF.getText().isEmpty()){ //Si alguno de los campos está vacío
             JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "Los campos no pueden esta vacíos", "Error de campos");
         } else {
             String pass = DigestUtils.sha256Hex(passTF.getText());
-            String name = numTF.getText();
-            Profesor profesor =profesorDAO.buscar(name);
+            String numRef = numTF.getText();
+            Profesor profesor =profesorDAO.buscar(numRef);
             if (profesor==null){
-
+                JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "No se ha encontrado en la base de datos al profesor", "Error de búsqueda");
             } else if (!profesor.getContrasena().equals(pass)){
-
+                JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "Contraseña incorrecta", "Error de inicio de sesión");
             } else {
-                R.profesorActual = profesor;
+                R.profesorActual = profesor; //Guardo el usuario para su uso en otras clases
                 Stage st = (Stage) this.logBtt.getScene().getWindow();
                 JavaFxUtils.abrirPantalla(st, "CrearParte.fxml", "Crear");
             }

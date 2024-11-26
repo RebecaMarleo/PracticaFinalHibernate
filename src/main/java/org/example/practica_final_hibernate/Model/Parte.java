@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Entity
+@Table(name = "partes_incidencia")
 public class Parte implements Serializable {
     @Id
     @Column(name = "id_parte")
