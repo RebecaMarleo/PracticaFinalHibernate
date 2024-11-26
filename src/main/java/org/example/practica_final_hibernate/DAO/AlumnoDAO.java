@@ -1,6 +1,7 @@
 package org.example.practica_final_hibernate.DAO;
 
 import org.example.practica_final_hibernate.Model.Alumno;
+import org.example.practica_final_hibernate.Model.Profesor;
 import org.example.practica_final_hibernate.Util.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -69,7 +70,15 @@ public class AlumnoDAO implements DAO<Alumno> {
     }
 
     @Override
-    public Alumno buscar() {
-        return null;
+    public Alumno buscar(String valor) {
+        Alumno alumno = null;
+        try{
+            Session session = factory.openSession();
+            alumno = session.createQuery("from Alumno where numero_expediente = '" + valor + "'", Alumno.class).getSingleResult();
+            session.close();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return alumno;
     }
 }

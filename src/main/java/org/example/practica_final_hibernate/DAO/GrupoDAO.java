@@ -68,7 +68,7 @@ public class GrupoDAO implements DAO<Grupo> {
     }
 
     @Override
-    public Grupo buscar() {
+    public Grupo buscar(String valor) {
         return null;
     }
 }

@@ -7,5 +7,5 @@ public interface DAO<T>{
     public void modificar(T objeto);
     public void eliminar(T objeto);
     public List<T> listar();
-    public T buscar();
+    public T buscar(String valor);
 }
