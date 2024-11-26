@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="59.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.practica_final_hibernate.Controllers.MenuController">
+<AnchorPane prefHeight="59.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.practica_final_hibernate.Controllers.MenuController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="61.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="61.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="752.0" />
       <ImageView fitHeight="53.0" fitWidth="59.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/LOGO_RIBERA_DE_CASTILLA/LOGO_TRANSPARENTE_COLOR_GRANDE_b.png" />
