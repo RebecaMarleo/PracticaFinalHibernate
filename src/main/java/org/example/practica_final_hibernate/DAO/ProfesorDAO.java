@@ -61,7 +61,8 @@ public class ProfesorDAO implements DAO<Profesor> {
         List<Profesor> lista = new ArrayList<>();
         try{
             Session session = factory.openSession();
-            lista = session.createQuery(" from Parte", Profesor.class).getResultList();
+            lista = session.createQuery(" from Profesor", Profesor.class).getResultList();
+            session.close();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -69,7 +70,15 @@ public class ProfesorDAO implements DAO<Profesor> {
     }
 
     @Override
-    public Profesor buscar() {
-        return null;
+    public Profesor buscar(String valor) {
+        Profesor profesor = null;
+        try{
+            Session session = factory.openSession();
+            profesor = session.createQuery("from Profesor where numero_asignado = '" + valor + "'", Profesor.class).getSingleResult();
+            session.close();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return profesor;
     }
 }

@@ -69,7 +69,7 @@ public class ParteDAO implements DAO<Parte>{
     }
 
     @Override
-    public Parte buscar() {
+    public Parte buscar(String valor) {
         return null;
     }
 }
