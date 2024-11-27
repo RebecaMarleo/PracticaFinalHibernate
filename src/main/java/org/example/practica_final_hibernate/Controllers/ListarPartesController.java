@@ -71,19 +71,14 @@ public class ListarPartesController implements Initializable {
 
     @FXML
     void onBuscarPorFecha(ActionEvent event) {
-        filtroFechaHora = (filterDPicker.getValue()!=null || horaCBox.getValue()!=null);
+        filtroFechaHora = (filterDPicker.getValue()!=null || horaCBox.getValue()!=null); //True si alguno de los campos tiene valor
         prepareTable();
     }
 
     @FXML
     void onBuscarPorNumExp(ActionEvent event) {
-        filtroExpediente = !expedienteTField.getText().isEmpty();
+        filtroExpediente = !expedienteTField.getText().isEmpty(); //True si tiene texto
         prepareTable();
-    }
-
-    @FXML
-    void onContentClick(MouseEvent event) {
-
     }
 
     @Override
@@ -92,7 +87,7 @@ public class ListarPartesController implements Initializable {
         parteDAO = new ParteDAO();
 
         //ComboBox
-        horaCBox.setItems(FXCollections.observableList(R.horas));
+        horaCBox.setItems(FXCollections.observableList(R.horas)); //Meto la lista estática del horario del centro
 
         //TableView
         nombreTCol.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getAlumno().getNombre()));
@@ -102,43 +97,62 @@ public class ListarPartesController implements Initializable {
         profeTCol.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getProfesor().getNombre()));
         grupoTCol.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getGrupo().getNombre()));
         fechaTCol.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getFecha().toString()));
-        partesTView.setRowFactory(trow -> new TableRow<>(){
+        partesTView.setRowFactory(trow -> new TableRow<>(){ //Cambio variables de las filas
             @Override
             protected void updateItem(Parte parte, boolean b) {
                 super.updateItem(parte, b);
                 if (b||parte==null){
-                    setStyle("");
+                    setStyle("-fx-background-color: white;"); //Pone blanco en espacios vacíos
                 } else {
-                    setStyle("-fx-background-color: #" + parte.getColor().getHex() + ";");
+                    setStyle("-fx-background-color: #" + parte.getColor().getHex() + ";"); //Pone el color del tipo de parte que sea
                 }
             }
         });
-        listaPartes = parteDAO.listar();
+        listaPartes = parteDAO.listar(); //Saca la lista de partes
 
-        prepareTable();
+        prepareTable(); //Se prepara la tabla
 
-
+        //Añado un Listener a las páginas del Pagination, el cual se activa al dar a pasar página
+        partesPagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
+            actualizarTabla(); //Pasa página
+        });
     }
 
     private void prepareTable() {
-        listaFiltrada = new ArrayList<>(listaPartes);
-        Iterator<Parte> partesIterator = listaFiltrada.iterator();
+        listaFiltrada = new ArrayList<>(listaPartes); //Copio la lista en un arraylist (Es mutable para poder quitar elementos)
+        Iterator<Parte> partesIterator = listaFiltrada.iterator(); //Iterador de la lista filtrada
         while (partesIterator.hasNext()){
             Parte parte = partesIterator.next();
-            if (filtroExpediente && Integer.parseInt(expedienteTField.getText())!=parte.getAlumno().getExpediente()){
+            if (filtroExpediente && !expedienteTField.getText().equals(String.valueOf(parte.getAlumno().getExpediente()))){
+                //Si el filtro de expediente esta activado y el texto no coincide con el expediente del iterador, lo borra
                 partesIterator.remove();
             } else {
-                if (filtroFechaHora) {
+                if (filtroFechaHora) { //Si el filtro de la hora está activado:
                     if (filterDPicker.getValue()!=null && parte.getFecha()!=filterDPicker.getValue()){
+                        //Si el campo de fecha tiene valor y este no coincide con la fecha de la ocurrencia, la borra
                         partesIterator.remove();
                     } else if(horaCBox.getValue()!=null && !horaCBox.getValue().equals(parte.getHora())){
+                        //Si el campo de la hora tiene valor y este no coincide con la hora de la ocurrencia, la borra
                         partesIterator.remove();
                     }
                 }
             }
         }
-        partesPagination.setPageCount(listaFiltrada.size()/3);
-        partesTView.setItems(FXCollections.observableList(listaFiltrada));
+        partesPagination.setPageCount((int) Math.ceil((double) listaFiltrada.size()/5));
+        //Se pone de tabulaciones el total de la lista entre 5, aproximando hacia arriba (ceil)
+        actualizarTabla(); //Se actualiza la tabla
+    }
+
+    private void actualizarTabla() { //Funcion encargada de actualizar la tabla tras cambiar de página o filtrar
+        int indice = partesPagination.getCurrentPageIndex(); //Coge el índice de la lista
+        int tope = ((indice*5)+5>=listaFiltrada.size())? (listaFiltrada.size()):(indice*5)+5;
+        /* Calculo un tope:
+        Viendo que, al hacer la sublista para que solo me saque x números, saba error al poner indice*5+5 por tener más longitud que la lista,
+        hice lo siguiente:
+            - Si el indice * 5 + 5 no supera el tamaño de la lista, se usa para la sublista
+            - Si no, se usa el tamaño de la lista.
+         */
+        partesTView.setItems(FXCollections.observableArrayList(listaFiltrada.subList((indice*5), (indice*5+5)))); //Muestra una sublista desde un punto de la tabla hasta 4 posiciones más adelante (0-4, 5-9...)
     }
 }
 
