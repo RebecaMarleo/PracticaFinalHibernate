@@ -106,16 +106,10 @@ public class ListarPartesController implements Initializable {
             @Override
             protected void updateItem(Parte parte, boolean b) {
                 super.updateItem(parte, b);
-                switch (parte.getSancion()){
-                    case "Suspensión":
-                        setStyle("-fx-background-color: orange;");
-                        break;
-                    case "Expulsión":
-                        setStyle("-fx-background-color: #red;");
-                        break;
-                    case "Advertencia":
-                        setStyle("-fx-background-color: #baffba;");
-                        break;
+                if (b||parte==null){
+                    setStyle("");
+                } else {
+                    setStyle("-fx-background-color: #" + parte.getColor().getHex() + ";");
                 }
             }
         });
