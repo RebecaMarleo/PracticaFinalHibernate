@@ -22,6 +22,10 @@ public class Parte implements Serializable {
     private String hora;
 
     @ManyToOne
+    @JoinColumn(name = "color", referencedColumnName = "color")
+    private TipoParte color;
+
+    @ManyToOne
     @JoinColumn(name="id_alum", referencedColumnName = "id_alum")
     private Alumno alumno;
 
@@ -32,6 +36,14 @@ public class Parte implements Serializable {
     @ManyToOne
     @JoinColumn(name="id_profesor", referencedColumnName = "id_profesor")
     private Profesor profesor;
+
+    public TipoParte getColor() {
+        return color;
+    }
+
+    public void setColor(TipoParte color) {
+        this.color = color;
+    }
 
     public Parte() {
     }

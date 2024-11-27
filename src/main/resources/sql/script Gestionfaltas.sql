@@ -65,18 +65,28 @@ COLLATE = utf8mb4_general_ci;
 -- -----------------------------------------------------
 -- Table `gestionpartes`.`partes_incidencia`
 -- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `gestionpartes`.`partes_tipos`;
+CREATE TABLE IF NOT EXISTS `gestionpartes`.`partes_tipos` (
+    `color` VARCHAR(255) PRIMARY KEY,
+    `puntuacion` INT(255) NOT NULL DEFAULT 0,
+    `hex` VARCHAR(6) NOT NULL DEFAULT 0
+);
+
+-- -----------------------------------------------------
+-- Table `gestionpartes`.`partes_incidencia`
+-- -----------------------------------------------------
 DROP TABLE IF EXISTS `gestionpartes`.`partes_incidencia`;
 CREATE TABLE IF NOT EXISTS `gestionpartes`.`partes_incidencia` (
   `id_alum` INT NULL DEFAULT NULL,
   `id_grupo` INT NULL DEFAULT NULL,
   `id_parte` INT NOT NULL AUTO_INCREMENT,
   `id_profesor` INT NULL DEFAULT NULL,
-  `puntuacion` INT NULL DEFAULT NULL,
   `descripcion` VARCHAR(255) NULL DEFAULT NULL,
   `fecha` DATE NULL DEFAULT NULL,
   `hora` VARCHAR(255) NULL DEFAULT NULL,
   `sancion` VARCHAR(255) NULL DEFAULT NULL,
-  `color` VARCHAR(255) NULL DEFAULT NULL,
+  `color` VARCHAR(255) NULL DEFAULT NULL REFERENCES `partes_tipos`(`color`),
   PRIMARY KEY (`id_parte`),
   INDEX `FKqrx661g5lij25bl2plx6cb2pl` (`id_alum` ASC),
   INDEX `FKckq2ajm1w9wbi3kunm8q3ldp3` (`id_grupo` ASC),
@@ -144,6 +154,12 @@ INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente
 INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(2, 1, 'Paula Ibáñez', '1018');
 INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(3, 8, 'Miguel Romero', '1019');
 INSERT INTO alumnos (id_grupo, puntos_acumulados, nombre_alum, numero_expediente) VALUES(4, 3, 'Isabel Hernández', '1020');
+
+
+-- Inserción de tipos de parte
+INSERT INTO partes_tipos (color, puntuacion, hex) VALUES('Verde', 1, 'befc77');
+INSERT INTO partes_tipos (color, puntuacion, hex) VALUES('Naranja', 6, 'ffa500');
+INSERT INTO partes_tipos (color, puntuacion, hex) VALUES('Rojo', 12, 'ff0000');
 
 -- Inserción de partes de incidencia en la tabla 'partes_incidencia'
 INSERT INTO partes_incidencia (id_alum, id_grupo, id_profesor, descripcion, fecha, hora, sancion, color) VALUES(1, 1, 1, 'Incidente menor', '2024-01-01', '09:00', 'Advertencia', 'Verde');
