@@ -19,7 +19,7 @@ public class Parte implements Serializable {
 
     private LocalDate fecha;
 
-    private LocalTime hora;
+    private String hora;
 
     @ManyToOne
     @JoinColumn(name="id_alum", referencedColumnName = "id_alum")
@@ -68,11 +68,11 @@ public class Parte implements Serializable {
         this.fecha = fecha;
     }
 
-    public LocalTime getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(LocalTime hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
