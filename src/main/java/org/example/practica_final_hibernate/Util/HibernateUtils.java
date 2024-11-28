@@ -22,6 +22,8 @@ public class HibernateUtils {
         cfg.addAnnotatedClass(Profesor.class);
         cfg.addAnnotatedClass(Parte.class);
         cfg.addAnnotatedClass(Grupo.class);
+        cfg.addAnnotatedClass(Parte.class);
+
         //configuration.addAnnotatedClass(Clase1.class);
         //configuration.addAnnotatedClass(Clase2.class);
         //configuration.addAnnotatedClass(Clase3.class);
