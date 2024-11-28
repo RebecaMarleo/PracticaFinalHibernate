@@ -19,7 +19,7 @@ public class Parte implements Serializable {
 
     private LocalDate fecha;
 
-    private LocalTime hora;
+    private String hora;
 
     @ManyToOne
     @JoinColumn(name="id_alum", referencedColumnName = "id_alum")
@@ -34,6 +34,17 @@ public class Parte implements Serializable {
     private Profesor profesor;
 
     public Parte() {
+    }
+
+
+    public Parte(String descripcion, LocalDate fecha, String hora, Alumno alumno, Grupo grupo, Profesor profesor, String sancion) {
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.alumno = alumno;
+        this.grupo = grupo;
+        this.profesor = profesor;
+        this.sancion = sancion;
     }
 
     public int getId() {
@@ -68,11 +79,11 @@ public class Parte implements Serializable {
         this.fecha = fecha;
     }
 
-    public LocalTime getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(LocalTime hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 

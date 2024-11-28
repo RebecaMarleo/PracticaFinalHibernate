@@ -69,7 +69,14 @@ public class Profesor implements Serializable {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
+
+    @Override
+    public String toString() {
+        return nombre + " (" + numero_asignado + ")";
+    }
 }
+
+
 /*
 DROP TABLE IF EXISTS `gestionpartes`.`profesores`;
 CREATE TABLE IF NOT EXISTS `gestionpartes`.`profesores` (

@@ -16,7 +16,7 @@ public class Alumno implements Serializable {
     private int puntos;
 
     @Column(name="numero_expediente")
-    private String expediente;
+    private int expediente;
 
     @Column(name="nombre_alum")
     private String nombre;
@@ -47,11 +47,11 @@ public class Alumno implements Serializable {
         this.puntos = puntos;
     }
 
-    public String getExpediente() {
+    public int getExpediente() {
         return expediente;
     }
 
-    public void setExpediente(String expediente) {
+    public void setExpediente(int expediente) {
         this.expediente = expediente;
     }
 
