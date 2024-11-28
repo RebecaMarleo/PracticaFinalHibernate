@@ -5,10 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.controlsfx.validation.ValidateEvent;
 import org.example.practica_final_hibernate.DAO.DAO;
 import org.example.practica_final_hibernate.DAO.ProfesorDAO;
 import org.example.practica_final_hibernate.Model.Profesor;
 import org.example.practica_final_hibernate.Util.JavaFxUtils;
+import org.example.practica_final_hibernate.Util.Validator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,31 +60,17 @@ public class CrearProfesorController implements Initializable {
 
     @FXML
     void crearProfesorClick(ActionEvent event) {
-        reset();
-        if (nombreTF.getText().isEmpty() || numTF.getText().isEmpty() || passTF.getText().isEmpty() || tipoCB.getSelectionModel().getSelectedItem() == null) {
-            if (nombreTF.getText().isEmpty()) { //Si el nombre está vacío
-                nombreErrLbl.setVisible(true);
-            }
-            if (numTF.getText().isEmpty()) { //Si el número está vacío
-                numErrLbl.setVisible(true);
-            }
-            if (passTF.getText().isEmpty()) { //Si la contraseña está vacía
-                passErrLbl.setVisible(true);
-            }
-            if (tipoCB.getSelectionModel().getSelectedItem() == null) { //Si el tipo está vacío
-                tipoErrLbl.setVisible(true);
-            }
-            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "Los datos del profesor están incompletos", "Faltan datos");
-        }
-        else {
+        reset(); //elimina posibles mensajes de error que hayan quedado activados anteriormente
+        boolean valido = validarCampos();
+        if (valido) {
             Profesor profesorExistente = dao.buscar(numTF.getText());
             if (profesorExistente == null) {
                 String nombre = nombreTF.getText();
                 String num = numTF.getText();
                 String pass = passTF.getText();
-                //encriptar contraseña
+                String passEncriptada = DigestUtils.sha256Hex(pass);
                 String tipo = tipoCB.getSelectionModel().getSelectedItem();
-                Profesor profesor = new Profesor(nombre, tipo, num, pass);
+                Profesor profesor = new Profesor(nombre, tipo, num, passEncriptada);
                 dao.insertar(profesor);
                 limpiar();
             }
@@ -101,15 +90,47 @@ public class CrearProfesorController implements Initializable {
     private void limpiar() {
         tipoCB.setValue("");
     }
-}
 
-/*
-package org.example.practica_final_hibernate.Controllers;
+    private boolean validarCampos() {
+        boolean valido = true;
+        boolean vacio = false;
 
-import javafx.event.ActionEvent;
+        if (nombreTF.getText().isEmpty()) { //Si el nombre está vacío
+            nombreErrLbl.setVisible(true);
+            valido = false;
+            vacio = true;
+        }
+        if (numTF.getText().isEmpty()) { //Si el número está vacío
+            numErrLbl.setVisible(true);
+            valido = false;
+            vacio = true;
+        }
+        if (passTF.getText().isEmpty()) { //Si la contraseña está vacía
+            passErrLbl.setVisible(true);
+            valido = false;
+            vacio = true;
+        }
+        if (tipoCB.getSelectionModel().getSelectedItem() == null) { //Si el tipo está vacío
+            tipoErrLbl.setVisible(true);
+            valido = false;
+            vacio = true;
+        }
+        if (vacio) {
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "Los datos del profesor están incompletos", "Faltan datos");
+        }
 
-public class CrearProfesorController {
-    public void crearProfesorClick(ActionEvent actionEvent) {
+        if (!Validator.validar("nombre", nombreTF.getText())) { //Si el nombre es incorrecto
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "El nombre no debe contener números ni caracteres especiales, ni puede empezar por un espacio en blanco", "Nombre inválido");
+            valido = false;
+        }
+        if (!Validator.validar("numero", numTF.getText())) { //Si el número es incorrecto
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "El número asignado debe ser un número entero", "Número asignado inválido");
+            valido = false;
+        }
+        if (!Validator.validar("pass", passTF.getText())) { //Si la contraseña es incorrecta
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "La contraseña debe tener al menos 4 caracteres", "Contraseña inválida");
+            valido = false;
+        }
+        return valido;
     }
 }
- */
