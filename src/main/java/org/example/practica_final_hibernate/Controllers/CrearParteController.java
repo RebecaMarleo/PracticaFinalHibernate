@@ -15,10 +15,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import org.example.practica_final_hibernate.DAO.AlumnoDAO;
 import org.example.practica_final_hibernate.DAO.ParteDAO;
-import org.example.practica_final_hibernate.Model.Alumno;
-import org.example.practica_final_hibernate.Model.Grupo;
-import org.example.practica_final_hibernate.Model.Parte;
-import org.example.practica_final_hibernate.Model.Profesor;
+import org.example.practica_final_hibernate.DAO.TipoParteDAO;
+import org.example.practica_final_hibernate.Model.*;
 import org.example.practica_final_hibernate.Util.JavaFxUtils;
 import org.example.practica_final_hibernate.Util.R;
 
@@ -73,6 +71,9 @@ public class CrearParteController implements Initializable {
     @FXML
     private AnchorPane ventanaPartes;
 
+    boolean usuarioNoEsJefeDeEstudios = !R.profesorActual.getTipo().equals("Jefe de Estudios");
+
+    TipoParteDAO tipoParteDAO;
 
     ParteDAO parteDAO;
 
@@ -80,7 +81,7 @@ public class CrearParteController implements Initializable {
 
     Grupo grupo;
 
-    private String color;
+    TipoParte color;
 
     @FXML
     void onCrear(ActionEvent event) {
@@ -92,13 +93,15 @@ public class CrearParteController implements Initializable {
             LocalDate fecha = fechaPicker.getValue();
             String hora = horaCB.getValue();
             String descripcion = descripcionTArea.getText();
+            String sancion = sancionTArea.getText();
+            String sancion2 = sancionCB.getValue();
 
             Alumno alumno = alumnoDAO.buscar(expediente);
 
             if (alumno == null){
                 JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "Alumno no encontrado en la base de datos", "Error alumno");
             } else {
-                Parte parte = new Parte(descripcion, fecha, hora, alumno, grupo, profesor, color);
+                Parte parte = new Parte(descripcion, sancion, fecha, hora, color, alumno, grupo, profesor);
                 parteDAO.insertar(parte);
 
                 JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte añadido con éxito!", "");
@@ -120,43 +123,64 @@ public class CrearParteController implements Initializable {
     }
 
     @FXML
+    void onParteVerde(ActionEvent event) {
+        ventanaPartes.setBackground(new Background(new BackgroundFill(Color.rgb(190, 252, 119), null, null)));
+        tipoParteLB.setText("PARTE VERDE DE ADVERTENCIA");
+        color = tipoParteDAO.buscar("Verde");
+
+        sancionCB.setVisible(false);
+        sancionCB.setDisable(true);
+
+        sancionTArea.setVisible(true);
+        sancionTArea.setDisable(false);
+
+        otrasancionTF.setDisable(true);
+        otrasancionTF.setVisible(false);
+    }
+
+    @FXML
     void onParteNaranja(ActionEvent event) {
         ventanaPartes.setBackground(new Background(new BackgroundFill(Color.ORANGE, null, null)));
         tipoParteLB.setText("PARTE NARANJA DE NOTA NEGATIVA");
-        color = "verde";
+        color = tipoParteDAO.buscar("Naranja");
+
+        sancionCB.setVisible(false);
+        sancionCB.setDisable(true);
+
+        sancionTArea.setVisible(true);
+        sancionTArea.setDisable(false);
+
+        otrasancionTF.setDisable(true);
+        otrasancionTF.setVisible(false);
     }
 
     @FXML
     void onParteRojo(ActionEvent event) {
         ventanaPartes.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
         tipoParteLB.setText("PARTE ROJO DE NOTA NEGATIVA");
-        color = "naranja";
+        color = tipoParteDAO.buscar("Rojo");
+
+        sancionTArea.setVisible(usuarioNoEsJefeDeEstudios);
+        sancionTArea.setDisable(!usuarioNoEsJefeDeEstudios);
+
+        sancionCB.setVisible(!usuarioNoEsJefeDeEstudios);
+        sancionCB.setDisable(usuarioNoEsJefeDeEstudios);
+
+        otrasancionTF.setVisible(!usuarioNoEsJefeDeEstudios);
+        otrasancionTF.setDisable(usuarioNoEsJefeDeEstudios);
     }
 
-    @FXML
-    void onParteVerde(ActionEvent event) {
-        ventanaPartes.setBackground(new Background(new BackgroundFill(Color.rgb(190, 252, 119), null, null)));
-        tipoParteLB.setText("PARTE VERDE DE ADVERTENCIA");
-        color = "rojo";
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         parteDAO = new ParteDAO();
         alumnoDAO = new AlumnoDAO();
+        tipoParteDAO = new TipoParteDAO();
 
-        color = "verde";
+        color = tipoParteDAO.buscar("Verde");
 
         profesorCB.getItems().add(R.profesorActual);
         horaCB.getItems().addAll(R.horas);
-
-        boolean usuarioNoEsJefeDeEstudios = !R.profesorActual.getTipo().equals("Jefe de Estudios");
-
-        sancionTArea.setVisible(!usuarioNoEsJefeDeEstudios);
-        sancionTArea.setDisable(usuarioNoEsJefeDeEstudios);
-
-        sancionCB.setVisible(!usuarioNoEsJefeDeEstudios);
-        sancionCB.setDisable(usuarioNoEsJefeDeEstudios);
     }
 }
 

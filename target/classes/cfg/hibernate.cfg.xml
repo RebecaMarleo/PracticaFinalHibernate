@@ -15,5 +15,6 @@
 		<mapping class="org.example.practica_final_hibernate.Model.Parte"/>
 		<mapping class="org.example.practica_final_hibernate.Model.Profesor"/>
 		<mapping class="org.example.practica_final_hibernate.Model.Grupo"/>
+		<mapping class="org.example.practica_final_hibernate.Model.TipoParte"/>
 	</session-factory>
 </hibernate-configuration>
