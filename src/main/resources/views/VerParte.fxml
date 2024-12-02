@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="653.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.practica_final_hibernate.Controllers.VerParteController">
+   <children>
+      <Label layoutX="90.0" layoutY="43.0" text="Tipo de parte" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="86.0" fitWidth="86.0" layoutX="266.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/LOGO_RIBERA_DE_CASTILLA/LOGO_COLOR_PEQUEÑO.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="78.0" layoutX="24.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="395.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="191.0" layoutX="24.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="395.0" />
+      <Label layoutX="45.0" layoutY="407.0" text="Sancion" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="148.0" layoutX="24.0" layoutY="435.0" stroke="BLACK" strokeType="INSIDE" width="395.0" />
+      <Label layoutX="352.0" layoutY="593.0" text="Fecha" textAlignment="RIGHT" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="27.0" layoutX="24.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="395.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="27.0" layoutX="24.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" width="395.0" />
+      <Line endX="100.0" endY="-25.0" layoutX="180.0" layoutY="117.0" startX="100.0" />
+      <Line endX="100.0" endY="-25.0" layoutX="180.0" layoutY="168.0" startX="100.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="27.0" layoutX="24.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="395.0" />
+      <Label layoutX="31.0" layoutY="96.0" text="Alumno:" />
+      <Label layoutX="31.0" layoutY="121.0" text="Profesor que informa:" />
+      <Label layoutX="31.0" layoutY="147.0" text="Fecha:" />
+      <Label layoutX="289.0" layoutY="147.0" text="Hora:" />
+      <Label layoutX="289.0" layoutY="96.0" text="Grupo:" />
+      <Label layoutX="198.0" layoutY="179.0" text="Sancion" textAlignment="CENTER" />
+      <Label layoutX="208.0" layoutY="622.0" text="El profesor" />
+      <TextArea editable="false" layoutX="25.0" layoutY="232.0" prefHeight="163.0" prefWidth="393.0" style="-fx-background-color: transparent;" />
+      <TextArea layoutX="25.0" layoutY="435.0" prefHeight="147.0" prefWidth="394.0" style="-fx-background-color: transparent;" />
+      <Label layoutX="87.0" layoutY="96.0" prefHeight="17.0" prefWidth="186.0" text="Label" />
+   </children>
+</AnchorPane>
