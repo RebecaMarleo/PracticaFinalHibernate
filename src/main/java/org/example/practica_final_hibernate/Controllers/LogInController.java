@@ -51,7 +51,7 @@ public class LogInController implements Initializable {
             } else {
                 R.profesorActual = profesor; //Guardo el usuario para su uso en otras clases
                 Stage st = (Stage) this.logBtt.getScene().getWindow();
-                JavaFxUtils.abrirPantalla(st, "CrearParte.fxml", "Crear");
+                JavaFxUtils.abrirPantallaEnStage(st, "CrearParte.fxml", "Crear");
             }
         }
     }

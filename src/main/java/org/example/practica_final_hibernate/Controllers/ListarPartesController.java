@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import org.example.practica_final_hibernate.DAO.ParteDAO;
 import org.example.practica_final_hibernate.Model.Parte;
+import org.example.practica_final_hibernate.Util.JavaFxUtils;
 import org.example.practica_final_hibernate.Util.R;
 
 import java.net.URL;
@@ -128,7 +129,7 @@ public class ListarPartesController implements Initializable {
                 partesIterator.remove();
             } else {
                 if (filtroFechaHora) { //Si el filtro de la hora está activado:
-                    if (filterDPicker.getValue()!=null && parte.getFecha()!=filterDPicker.getValue()){
+                    if (filterDPicker.getValue()!=null && !parte.getFecha().equals(filterDPicker.getValue())){
                         //Si el campo de fecha tiene valor y este no coincide con la fecha de la ocurrencia, la borra
                         partesIterator.remove();
                     } else if(horaCBox.getValue()!=null && !horaCBox.getValue().equals(parte.getHora())){
@@ -144,15 +145,30 @@ public class ListarPartesController implements Initializable {
     }
 
     private void actualizarTabla() { //Funcion encargada de actualizar la tabla tras cambiar de página o filtrar
-        int indice = partesPagination.getCurrentPageIndex(); //Coge el índice de la lista
-        int tope = ((indice*5)+5>=listaFiltrada.size())? (listaFiltrada.size()):(indice*5)+5;
+        try {
+            int indice = partesPagination.getCurrentPageIndex(); //Coge el índice de la lista
+            int tope = ((indice * 5) + 5 >= listaFiltrada.size()) ? (listaFiltrada.size()) : (indice * 5) + 5;
         /* Calculo un tope:
         Viendo que, al hacer la sublista para que solo me saque x números, saba error al poner indice*5+5 por tener más longitud que la lista,
         hice lo siguiente:
             - Si el indice * 5 + 5 no supera el tamaño de la lista, se usa para la sublista
             - Si no, se usa el tamaño de la lista.
          */
-        partesTView.setItems(FXCollections.observableArrayList(listaFiltrada.subList((indice*5), (indice*5+5)))); //Muestra una sublista desde un punto de la tabla hasta 4 posiciones más adelante (0-4, 5-9...)
+            partesTView.setItems(FXCollections.observableArrayList(listaFiltrada.subList((indice * 5), tope))); //Muestra una sublista desde un punto de la tabla hasta 4 posiciones más adelante (0-4, 5-9...)
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void seleccionarParte(){
+        Parte parte = partesTView.getSelectionModel().getSelectedItem();
+        if (parte!=null){
+            VerParteController controller = (VerParteController) JavaFxUtils.abrirPantallaEnNuevoStage("VerParte.fxml", "Parte de " + parte.getAlumno().getNombre());
+            if (controller!=null) {
+                controller.iniciar(parte);
+            }
+        }
     }
 }
 
