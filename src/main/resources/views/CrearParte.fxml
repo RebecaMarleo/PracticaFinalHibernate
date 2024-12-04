@@ -40,7 +40,7 @@
       <Line endX="622.0" layoutX="129.0" layoutY="319.0" startX="-129.0" />
       <Line endX="622.0" layoutX="129.0" layoutY="471.0" startX="-129.0" />
       <ComboBox fx:id="horaCB" layoutX="566.0" layoutY="275.0" prefHeight="25.0" prefWidth="165.0" promptText="Selecciona una hora" style="-fx-background-color: white;" />
-      <TextField fx:id="grupoTF" layoutX="566.0" layoutY="154.0" prefHeight="25.0" prefWidth="165.0" promptText="Grupo" />
+      <TextField fx:id="grupoTF" editable="false" layoutX="566.0" layoutY="154.0" prefHeight="25.0" prefWidth="165.0" promptText="Grupo" />
       <Label fx:id="sancionLb" layoutX="28.0" layoutY="472.0" text="Sanción (a determinar por el profesor)">
          <font>
             <Font name="System Bold" size="12.0" />

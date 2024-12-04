@@ -109,6 +109,8 @@ public class CrearParteController implements Initializable {
                 Parte parte = new Parte(descripcion, sancion, fecha, hora, color, alumno, grupo, profesor);
                 parteDAO.insertar(parte);
 
+                alumno.setPuntos(alumno.getPuntos() + color.getPuntuacion());
+
                 JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte añadido con éxito!", "");
             } else if (Objects.equals(color.getColor(), "Rojo") && !usuarioNoEsJefeDeEstudios){
                 if (sancionCB.getValue().equals("Otra sanción")){
@@ -118,13 +120,19 @@ public class CrearParteController implements Initializable {
                     Parte parte = new Parte(descripcion, sancionRoja, fecha, hora, color, alumno, grupo, profesor);
                     parteDAO.insertar(parte);
                 }
+
+                alumno.setPuntos(alumno.getPuntos() + color.getPuntuacion());
+
                 JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte añadido con éxito!", "");
             } else {
                 Parte parte = new Parte(descripcion, "", fecha, hora, color, alumno, grupo, profesor);
                 parteDAO.insertar(parte);
 
+                alumno.setPuntos(alumno.getPuntos() + color.getPuntuacion());
                 JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte añadido con éxito!", "");
             }
+
+            alumnoDAO.modificar(alumno);
         }
     }
 

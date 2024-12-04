@@ -3,10 +3,7 @@ package org.example.practica_final_hibernate.Util;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-
-import java.util.Optional;
 
 public class JavaFxUtils {
     /*Función que cambia entre escenas*/
@@ -21,11 +18,11 @@ public class JavaFxUtils {
         }
     }
     /*Función que abre una Alerta en pantalla*/
-    public static Optional<ButtonType> mostrarAlert(Alert.AlertType alertType, String mensaje, String titulo){
+    public static void mostrarAlert(Alert.AlertType alertType, String mensaje, String titulo){
         Alert alert = new Alert(alertType); //Ponemos el tipo de alerta
         alert.setTitle(titulo); //Se pone el titulo
         alert.setContentText(mensaje); //Se pone el mensaje
         alert.setHeaderText(null); //Alert sin cabecera
-        return alert.showAndWait(); //Devuelve el botón que pulse el usuario (Por si acaso necesitamos hacer confirmaciones)
+        alert.showAndWait();
     }
 }
