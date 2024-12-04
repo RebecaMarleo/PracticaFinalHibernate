@@ -16,7 +16,6 @@
     <children>
         <fx:include source="Menu.fxml" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#88c0f5" height="105.0" layoutX="132.0" layoutY="73.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="483.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#88c0f5" height="229.0" layoutX="32.0" layoutY="207.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="687.0" />
       <Label layoutX="275.0" layoutY="75.0" text="LISTA DE PARTES">
          <font>
             <Font name="System Bold" size="26.0" />
@@ -35,8 +34,6 @@
       </Button>
       <DatePicker fx:id="filterDPicker" layoutX="147.0" layoutY="143.0" />
       <ChoiceBox fx:id="horaCBox" layoutX="321.0" layoutY="143.0" prefHeight="25.0" prefWidth="174.0" />
-      <Pagination fx:id="partesPagination" layoutX="29.0" layoutY="207.0" prefHeight="222.0" prefWidth="687.0" />
-      <TableView fx:id="partesTView" layoutX="45.0" layoutY="226.0" prefHeight="147.0" prefWidth="664.0">
         <columns>
           <TableColumn fx:id="expTCol" prefWidth="97.0" text="Expediente" />
           <TableColumn fx:id="nombreTCol" prefWidth="111.0" text="Nombre del Alumno" />

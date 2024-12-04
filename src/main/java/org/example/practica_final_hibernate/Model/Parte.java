@@ -37,15 +37,26 @@ public class Parte implements Serializable {
     @JoinColumn(name="id_profesor", referencedColumnName = "id_profesor")
     private Profesor profesor;
 
+    public Parte() {
+    }
+
+    public Parte(String descripcion, String sancion, LocalDate fecha, String hora, TipoParte color, Alumno alumno, Grupo grupo, Profesor profesor) {
+        this.descripcion = descripcion;
+        this.sancion = sancion;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.color = color;
+        this.alumno = alumno;
+        this.grupo = grupo;
+        this.profesor = profesor;
+    }
+
     public TipoParte getColor() {
         return color;
     }
 
     public void setColor(TipoParte color) {
         this.color = color;
-    }
-
-    public Parte() {
     }
 
     public int getId() {
