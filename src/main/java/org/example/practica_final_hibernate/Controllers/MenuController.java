@@ -11,7 +11,7 @@ import org.example.practica_final_hibernate.Util.R;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MenuController implements Initializable {
+public class MenuController extends Controller implements Initializable {
 
     @FXML
     private Button CrearParteBtt;

@@ -17,7 +17,7 @@ import org.example.practica_final_hibernate.Util.R;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LogInController implements Initializable {
+public class LogInController extends Controller implements Initializable {
 
     ProfesorDAO profesorDAO;
 

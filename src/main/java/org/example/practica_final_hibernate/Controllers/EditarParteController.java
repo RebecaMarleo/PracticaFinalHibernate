@@ -2,7 +2,6 @@ package org.example.practica_final_hibernate.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import org.example.practica_final_hibernate.DAO.AlumnoDAO;
 import org.example.practica_final_hibernate.DAO.ParteDAO;
 import org.example.practica_final_hibernate.DAO.TipoParteDAO;
@@ -20,12 +20,12 @@ import org.example.practica_final_hibernate.Model.*;
 import org.example.practica_final_hibernate.Util.JavaFxUtils;
 import org.example.practica_final_hibernate.Util.R;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
-public class CrearParteController extends Controller implements Initializable {
+public class EditarParteController extends Controller{
+
+    private Parte formerParte; //Parte a editar
 
     @FXML
     private Button NaranjaBtt;
@@ -87,13 +87,15 @@ public class CrearParteController extends Controller implements Initializable {
 
     TipoParte color;
 
+    private ListarPartesController formerController;
+
     @FXML
-    void onCrear(ActionEvent event) {
+    void onEditar(ActionEvent event) {
         if (expAlumnoTF.getText().isEmpty() || profesorCB.getValue() == null || fechaPicker.getValue() == null || grupoTF.getText().isEmpty() || horaCB.getValue() == null || descripcionTArea.getText().isEmpty()){
             JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "No se han rellenado todos los campos", "Erro de campos");
         } else {
             String expediente = expAlumnoTF.getText();
-            Profesor profesor = profesorCB.getValue();
+            //Profesor profesor = profesorCB.getValue();
             LocalDate fecha = fechaPicker.getValue();
             String hora = horaCB.getValue();
             String descripcion = descripcionTArea.getText();
@@ -103,37 +105,42 @@ public class CrearParteController extends Controller implements Initializable {
 
             Alumno alumno = alumnoDAO.buscar(expediente);
 
-            if (alumno == null){
+            if (alumno == null) {
                 JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "Alumno no encontrado en la base de datos", "Error alumno");
-            } else if (Objects.equals(color.getColor(), "Verde") || Objects.equals(color.getColor(), "Naranja") ){
-                Parte parte = new Parte(descripcion, sancion, fecha, hora, color, alumno, grupo, profesor);
-                parteDAO.insertar(parte);
-
-                alumno.setPuntos(alumno.getPuntos() + color.getPuntuacion());
-
-                JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte añadido con éxito!", "");
-            } else if (Objects.equals(color.getColor(), "Rojo") && !usuarioNoEsJefeDeEstudios){
-                if (sancionCB.getValue().equals("Otra sanción")){
-                    Parte parteOtra = new Parte(descripcion, otraSancion, fecha, hora, color, alumno, grupo, profesor);
-                    parteDAO.insertar(parteOtra);
-                } else {
-                    Parte parte = new Parte(descripcion, sancionRoja, fecha, hora, color, alumno, grupo, profesor);
-                    parteDAO.insertar(parte);
-                }
-
-                alumno.setPuntos(alumno.getPuntos() + color.getPuntuacion());
-
-                JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte añadido con éxito!", "");
             } else {
-                Parte parte = new Parte(descripcion, "", fecha, hora, color, alumno, grupo, profesor);
-                parteDAO.insertar(parte);
+                if (Objects.equals(color.getColor(), "Verde") || Objects.equals(color.getColor(), "Naranja")) {
+                    Parte parte = new Parte(descripcion, sancion, fecha, hora, color, alumno, grupo, formerParte.getProfesor());
+                    parte.setId(formerParte.getId());
+                    parteDAO.modificar(parte);
+                    JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte editado con éxito!", "");
+                    closeWindow();
+                } else if (Objects.equals(color.getColor(), "Rojo") && !usuarioNoEsJefeDeEstudios) {
+                    if (sancionCB.getValue().equals("Otra sanción")) {
+                        Parte parteOtra = new Parte(descripcion, otraSancion, fecha, hora, color, alumno, grupo, formerParte.getProfesor());
+                        parteDAO.insertar(parteOtra);
+                    } else {
+                        Parte parte = new Parte(descripcion, sancionRoja, fecha, hora, color, alumno, grupo, formerParte.getProfesor());
+                        parteDAO.insertar(parte);
+                    }
 
-                alumno.setPuntos(alumno.getPuntos() + color.getPuntuacion());
-                JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte añadido con éxito!", "");
+                    JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte editado con éxito!", "");
+                    closeWindow();
+                } else {
+                    Parte parte = new Parte(descripcion, "", fecha, hora, color, alumno, grupo, formerParte.getProfesor());
+                    parteDAO.insertar(parte);
+
+                    JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte editado con éxito!", "");
+                    closeWindow();
+                }
+                alumno.setPuntos(alumno.getPuntos() + color.getPuntuacion() - formerParte.getColor().getPuntuacion());
+                alumnoDAO.modificar(alumno);
+                formerController.refresh();
             }
-
-            alumnoDAO.modificar(alumno);
         }
+    }
+
+    private void closeWindow() {
+        ((Stage) this.ventanaPartes.getScene().getWindow()).close();
     }
 
     @FXML
@@ -226,17 +233,41 @@ public class CrearParteController extends Controller implements Initializable {
         }
     }
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void setItems(Parte parte, ListarPartesController listarPartesController){
+        this.formerController = listarPartesController;
+        this.formerParte = parte;
         parteDAO = new ParteDAO();
         alumnoDAO = new AlumnoDAO();
         tipoParteDAO = new TipoParteDAO();
-
-        color = tipoParteDAO.buscar("Verde");
-
-        profesorCB.getItems().add(R.profesorActual);
+        profesorCB.getItems().add(parte.getProfesor());
         horaCB.getItems().addAll(R.horas);
-        sancionCB.getItems().addAll(R.tiposSancion);
+
+        color = formerParte.getColor();
+        switch (color.getColor()) {
+            case "Verde" -> onParteVerde(null);
+            case "Rojo" -> onParteRojo(null);
+            case "Naranja" -> onParteNaranja(null);
+        }
+
+        expAlumnoTF.setText(String.valueOf(parte.getAlumno().getExpediente()));
+        grupoTF.setText(parte.getGrupo().getNombre());
+        grupo = parte.getGrupo();
+        descripcionTArea.setText(parte.getDescripcion());
+        if (color.getColor().equals("Rojo")){
+            if (R.tiposSancion.contains(parte.getSancion())){
+                sancionCB.setValue(parte.getSancion());
+            } else {
+                sancionCB.setValue("Otra sanción");
+                onValueChosen(null);
+                otrasancionTF.setText(parte.getSancion());
+            }
+        } else {
+            sancionTArea.setText(parte.getSancion());
+        }
+
+        horaCB.setValue(parte.getHora());
+        fechaPicker.setValue(parte.getFecha());
+        profesorCB.setValue(parte.getProfesor());
+
     }
 }

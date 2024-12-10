@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ListarPartesController implements Initializable {
+public class ListarPartesController extends Controller implements Initializable {
 
     @FXML
     private Button buscarBtt;
@@ -82,6 +82,11 @@ public class ListarPartesController implements Initializable {
         prepareTable();
     }
 
+    public void refresh(){
+        listaPartes = parteDAO.listar(); //Saca la lista de partes
+
+        prepareTable(); //Se prepara la tabla
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //DAO
@@ -109,10 +114,7 @@ public class ListarPartesController implements Initializable {
                 }
             }
         });
-        listaPartes = parteDAO.listar(); //Saca la lista de partes
-
-        prepareTable(); //Se prepara la tabla
-
+        refresh();
         //Añado un Listener a las páginas del Pagination, el cual se activa al dar a pasar página
         partesPagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
             actualizarTabla(); //Pasa página
@@ -166,7 +168,7 @@ public class ListarPartesController implements Initializable {
         if (parte!=null){
             VerParteController controller = (VerParteController) JavaFxUtils.abrirPantallaEnNuevoStage("VerParte.fxml", "Parte de " + parte.getAlumno().getNombre());
             if (controller!=null) {
-                controller.iniciar(parte);
+                controller.iniciar(parte, this);
             }
         }
     }

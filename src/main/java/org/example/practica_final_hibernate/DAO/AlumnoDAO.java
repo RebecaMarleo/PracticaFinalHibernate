@@ -34,7 +34,7 @@ public class AlumnoDAO implements DAO<Alumno> {
         Session session = factory.openSession();
         try{
             session.beginTransaction();
-            session.update(objeto);
+            session.merge(objeto);
             session.getTransaction().commit();
         }catch (Exception e){
             session.getTransaction().rollback();

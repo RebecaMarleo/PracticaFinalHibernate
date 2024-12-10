@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ListarAlumnosController implements Initializable {
+public class ListarAlumnosController extends Controller implements Initializable {
 
     private TipoParteDAO tipoDAO;
     private TipoParte parteVerde;

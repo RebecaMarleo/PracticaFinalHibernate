@@ -12,15 +12,17 @@ import java.util.Optional;
 
 public class JavaFxUtils {
     /*Función que cambia entre escenas*/
-    public static void abrirPantallaEnStage(Stage stage, String ruta, String titulo){
+    public static Controller abrirPantallaEnStage(Stage stage, String ruta, String titulo){
         try{
             FXMLLoader loader = new FXMLLoader(R.getResource(ruta)); //Hace un loader con la ruta que recibe por parámetro
             Scene scene = new Scene(loader.load()); //Carga el loader en una escena
             stage.setTitle(titulo); //Cambia el título
             stage.setScene(scene);  //Cambia la escena
+            return loader.getController();
         }catch (Exception e){ //Por si hay un fallo cargando el XML:
             mostrarAlert(Alert.AlertType.ERROR, "No se ha podido acceder a la ruta especificada", "Error de FXML");
         }
+        return null;
     }
     /*Función que abre una Alerta en pantalla*/
     public static Optional<ButtonType> mostrarAlert(Alert.AlertType alertType, String mensaje, String titulo){

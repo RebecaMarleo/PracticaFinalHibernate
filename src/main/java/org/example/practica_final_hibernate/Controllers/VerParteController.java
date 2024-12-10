@@ -2,18 +2,20 @@ package org.example.practica_final_hibernate.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import org.example.practica_final_hibernate.DAO.AlumnoDAO;
+import org.example.practica_final_hibernate.DAO.ParteDAO;
+import org.example.practica_final_hibernate.Model.Alumno;
 import org.example.practica_final_hibernate.Model.Parte;
-import org.example.practica_final_hibernate.Util.R;
-
-import java.time.format.TextStyle;
-import java.util.Locale;
+import org.example.practica_final_hibernate.Util.JavaFxUtils;
 
 public class VerParteController extends Controller{
 
+    private ListarPartesController formerController;
     private Parte parte;
 
     @FXML
@@ -62,7 +64,8 @@ public class VerParteController extends Controller{
     private Button eraseBtt;
 
 
-    void iniciar(Parte parte){
+    void iniciar(Parte parte, ListarPartesController controller){
+        this.formerController = controller;
         this.parte = parte;
         alumLb.setText(parte.getAlumno().getNombre());
         descripcionLb.setText(parte.getDescripcion());
@@ -89,19 +92,26 @@ public class VerParteController extends Controller{
 
         sancionLbl.setText((parte.getProfesor().getTipo().equals("Jefe de Estudios"))? "La sanción que recibes por parte de Jefatura de Estudios:":"La sanción que recibes (A determinar por el profesor):");
 
-        fechaJustificanteLb.setText("En Valladolid a " + parte.getFecha().getDayOfMonth() + " de " + parte.getFecha().getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " de " + parte.getFecha().getYear());
+        fechaJustificanteLb.setText("En Valladolid a " + parte.getFecha().getDayOfMonth() + " del " + parte.getFecha().getMonth().getValue() + " de " + parte.getFecha().getYear());
 
     }
 
 
     @FXML
     void onEdit(ActionEvent event) {
-
+        EditarParteController controller = (EditarParteController) JavaFxUtils.abrirPantallaEnStage((Stage) this.editBtt.getScene().getWindow(), "EditarParte.fxml", "Editar Parte");
+        if(controller!=null)
+        controller.setItems(this.parte, this.formerController);
     }
 
     @FXML
     void onErase(ActionEvent event) {
-
+        Alumno alumno = parte.getAlumno();
+        alumno.setPuntos(alumno.getPuntos()-parte.getColor().getPuntuacion());
+        new AlumnoDAO().modificar(alumno);
+        new ParteDAO().eliminar(parte);
+        JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Borrado con exito", "");
+        this.formerController.refresh();
+        ((Stage)this.eraseBtt.getScene().getWindow()).close();
     }
-
 }

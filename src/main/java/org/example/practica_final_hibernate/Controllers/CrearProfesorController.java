@@ -16,7 +16,7 @@ import org.example.practica_final_hibernate.Util.Validator;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CrearProfesorController implements Initializable {
+public class CrearProfesorController extends Controller implements Initializable {
 
     @FXML
     private TextField nombreTF;
