@@ -40,6 +40,12 @@ public class CrearParteController extends Controller implements Initializable {
     private Button crearBtt;
 
     @FXML
+    private TextField profesorTField;
+
+    @FXML
+    private Label alumnoLbl;
+
+    @FXML
     private TextArea descripcionTArea;
 
     @FXML
@@ -56,9 +62,6 @@ public class CrearParteController extends Controller implements Initializable {
 
     @FXML
     private TextField otrasancionTF;
-
-    @FXML
-    private ComboBox<Profesor> profesorCB;
 
     @FXML
     private ComboBox<String> sancionCB;
@@ -89,11 +92,11 @@ public class CrearParteController extends Controller implements Initializable {
 
     @FXML
     void onCrear(ActionEvent event) {
-        if (expAlumnoTF.getText().isEmpty() || profesorCB.getValue() == null || fechaPicker.getValue() == null || grupoTF.getText().isEmpty() || horaCB.getValue() == null || descripcionTArea.getText().isEmpty()){
+        if (expAlumnoTF.getText().isEmpty() || fechaPicker.getValue() == null || grupoTF.getText().isEmpty() || horaCB.getValue() == null || descripcionTArea.getText().isEmpty()){
             JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "No se han rellenado todos los campos", "Erro de campos");
         } else {
             String expediente = expAlumnoTF.getText();
-            Profesor profesor = profesorCB.getValue();
+            Profesor profesor = R.profesorActual;
             LocalDate fecha = fechaPicker.getValue();
             String hora = horaCB.getValue();
             String descripcion = descripcionTArea.getText();
@@ -143,9 +146,11 @@ public class CrearParteController extends Controller implements Initializable {
         if (a!=null){
             grupo = a.getGrupo();
             grupoTF.setText(grupo.getNombre());
+            alumnoLbl.setText("(" + a.getNombre() + ")");
         } else {
             grupo = null;
             grupoTF.setText("");
+            alumnoLbl.setText("");
         }
     }
 
@@ -235,7 +240,7 @@ public class CrearParteController extends Controller implements Initializable {
 
         color = tipoParteDAO.buscar("Verde");
 
-        profesorCB.getItems().add(R.profesorActual);
+        profesorTField.setText(R.profesorActual.toString());
         horaCB.getItems().addAll(R.horas);
         sancionCB.getItems().addAll(R.tiposSancion);
     }

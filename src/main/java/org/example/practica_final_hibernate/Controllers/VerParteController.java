@@ -94,6 +94,7 @@ public class VerParteController extends Controller{
 
         fechaJustificanteLb.setText("En Valladolid a " + parte.getFecha().getDayOfMonth() + " del " + parte.getFecha().getMonth().getValue() + " de " + parte.getFecha().getYear());
 
+        profesorLb.setText(profesorLb.getText() + ": " + parte.getProfesor().getNombre());
     }
 
 

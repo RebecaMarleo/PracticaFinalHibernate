@@ -21,6 +21,8 @@ import org.example.practica_final_hibernate.Util.JavaFxUtils;
 import org.example.practica_final_hibernate.Util.R;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class EditarParteController extends Controller{
@@ -95,7 +97,7 @@ public class EditarParteController extends Controller{
             JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "No se han rellenado todos los campos", "Erro de campos");
         } else {
             String expediente = expAlumnoTF.getText();
-            //Profesor profesor = profesorCB.getValue();
+            Profesor profesor = profesorCB.getValue();
             LocalDate fecha = fechaPicker.getValue();
             String hora = horaCB.getValue();
             String descripcion = descripcionTArea.getText();
@@ -109,25 +111,28 @@ public class EditarParteController extends Controller{
                 JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "Alumno no encontrado en la base de datos", "Error alumno");
             } else {
                 if (Objects.equals(color.getColor(), "Verde") || Objects.equals(color.getColor(), "Naranja")) {
-                    Parte parte = new Parte(descripcion, sancion, fecha, hora, color, alumno, grupo, formerParte.getProfesor());
+                    Parte parte = new Parte(descripcion, sancion, fecha, hora, color, alumno, grupo, profesor);
                     parte.setId(formerParte.getId());
                     parteDAO.modificar(parte);
                     JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte editado con éxito!", "");
                     closeWindow();
                 } else if (Objects.equals(color.getColor(), "Rojo") && !usuarioNoEsJefeDeEstudios) {
                     if (sancionCB.getValue().equals("Otra sanción")) {
-                        Parte parteOtra = new Parte(descripcion, otraSancion, fecha, hora, color, alumno, grupo, formerParte.getProfesor());
-                        parteDAO.insertar(parteOtra);
+                        Parte parteOtra = new Parte(descripcion, otraSancion, fecha, hora, color, alumno, grupo, profesorCB.getValue());
+                        parteOtra.setId(formerParte.getId());
+                        parteDAO.modificar(parteOtra);
                     } else {
-                        Parte parte = new Parte(descripcion, sancionRoja, fecha, hora, color, alumno, grupo, formerParte.getProfesor());
-                        parteDAO.insertar(parte);
+                        Parte parte = new Parte(descripcion, sancionRoja, fecha, hora, color, alumno, grupo, profesorCB.getValue());
+                        parte.setId(formerParte.getId());
+                        parteDAO.modificar(parte);
                     }
 
                     JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte editado con éxito!", "");
                     closeWindow();
                 } else {
                     Parte parte = new Parte(descripcion, "", fecha, hora, color, alumno, grupo, formerParte.getProfesor());
-                    parteDAO.insertar(parte);
+                    parte.setId(formerParte.getId());
+                    parteDAO.modificar(parte);
 
                     JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte editado con éxito!", "");
                     closeWindow();
@@ -240,6 +245,9 @@ public class EditarParteController extends Controller{
         alumnoDAO = new AlumnoDAO();
         tipoParteDAO = new TipoParteDAO();
         profesorCB.getItems().add(parte.getProfesor());
+        if (parte.getProfesor().getId()!=R.profesorActual.getId()){
+            profesorCB.getItems().add(R.profesorActual);
+        }
         horaCB.getItems().addAll(R.horas);
 
         color = formerParte.getColor();
@@ -253,6 +261,7 @@ public class EditarParteController extends Controller{
         grupoTF.setText(parte.getGrupo().getNombre());
         grupo = parte.getGrupo();
         descripcionTArea.setText(parte.getDescripcion());
+        sancionCB.getItems().addAll(R.tiposSancion);
         if (color.getColor().equals("Rojo")){
             if (R.tiposSancion.contains(parte.getSancion())){
                 sancionCB.setValue(parte.getSancion());
@@ -264,7 +273,6 @@ public class EditarParteController extends Controller{
         } else {
             sancionTArea.setText(parte.getSancion());
         }
-
         horaCB.setValue(parte.getHora());
         fechaPicker.setValue(parte.getFecha());
         profesorCB.setValue(parte.getProfesor());

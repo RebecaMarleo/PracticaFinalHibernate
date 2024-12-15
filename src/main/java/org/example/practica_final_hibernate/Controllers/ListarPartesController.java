@@ -72,7 +72,7 @@ public class ListarPartesController extends Controller implements Initializable 
 
     @FXML
     void onBuscarPorFecha(ActionEvent event) {
-        filtroFechaHora = (filterDPicker.getValue()!=null || horaCBox.getValue()!=null); //True si alguno de los campos tiene valor
+        filtroFechaHora = (filterDPicker.getValue()!=null || !horaCBox.getValue().equals("Sin filtrar")); //True si alguno de los campos tiene valor
         prepareTable();
     }
 
@@ -92,8 +92,11 @@ public class ListarPartesController extends Controller implements Initializable 
         //DAO
         parteDAO = new ParteDAO();
 
+        List<String> horaList = new ArrayList<>(R.horas);
+        horaList.add("Sin filtrar");
         //ComboBox
-        horaCBox.setItems(FXCollections.observableList(R.horas)); //Meto la lista estática del horario del centro
+        horaCBox.setItems(FXCollections.observableList(horaList)); //Meto la lista estática del horario del centro
+        horaCBox.setValue("Sin filtrar");
 
         //TableView
         nombreTCol.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getAlumno().getNombre()));
@@ -134,7 +137,7 @@ public class ListarPartesController extends Controller implements Initializable 
                     if (filterDPicker.getValue()!=null && !parte.getFecha().equals(filterDPicker.getValue())){
                         //Si el campo de fecha tiene valor y este no coincide con la fecha de la ocurrencia, la borra
                         partesIterator.remove();
-                    } else if(horaCBox.getValue()!=null && !horaCBox.getValue().equals(parte.getHora())){
+                    } else if(!horaCBox.getValue().equals("Sin filtrar") && !horaCBox.getValue().equals(parte.getHora())){
                         //Si el campo de la hora tiene valor y este no coincide con la hora de la ocurrencia, la borra
                         partesIterator.remove();
                     }
