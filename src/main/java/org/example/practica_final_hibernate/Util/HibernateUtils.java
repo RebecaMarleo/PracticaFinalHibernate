@@ -18,6 +18,7 @@ public class HibernateUtils {
         cfg.configure(R.getCFG("hibernate.cfg.xml"));
         // Se registran las clases que hay que MAPEAR con cada tabla de la base de datos
 
+
         cfg.addAnnotatedClass(Alumno.class);
         cfg.addAnnotatedClass(Profesor.class);
         cfg.addAnnotatedClass(Parte.class);

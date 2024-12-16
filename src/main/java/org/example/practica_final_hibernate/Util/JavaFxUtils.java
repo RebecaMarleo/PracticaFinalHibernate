@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.practica_final_hibernate.Controllers.Controller;
@@ -18,6 +19,7 @@ public class JavaFxUtils {
             Scene scene = new Scene(loader.load()); //Carga el loader en una escena
             stage.setTitle(titulo); //Cambia el título
             stage.setScene(scene);  //Cambia la escena
+            stage.getIcons().add(new Image(R.getResource("images/LOGO_RIBERA_DE_CASTILLA/LOGO_COLOR_PEQUEÑO.png").toString()));
             return loader.getController();
         }catch (Exception e){ //Por si hay un fallo cargando el XML:
             mostrarAlert(Alert.AlertType.ERROR, "No se ha podido acceder a la ruta especificada", "Error de FXML");

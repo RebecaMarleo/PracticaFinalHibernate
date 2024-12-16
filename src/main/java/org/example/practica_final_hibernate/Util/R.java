@@ -1,18 +1,17 @@
 package org.example.practica_final_hibernate.Util;
 
+import org.example.practica_final_hibernate.Main;
 import org.example.practica_final_hibernate.Model.Profesor;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
 
 public class R {
     public static URL getResource(String path){
-        return Thread.currentThread().getContextClassLoader().getResource("views/"+path);
+        return Main.class.getResource("views/" +path);
     }
     public static URL getCFG(String path){
-        return Thread.currentThread().getContextClassLoader().getResource("cfg/"+path);
+        return Main.class.getResource("cfg/" +path);
     }
     public static Profesor profesorActual;
 
