@@ -27,6 +27,9 @@ import java.util.ResourceBundle;
 
 public class CrearParteController extends Controller implements Initializable {
 
+    public Label sancionSizeLbl;
+    public Label descSizeLbl;
+    public Label otraSancionSize;
     @FXML
     private Button NaranjaBtt;
 
@@ -169,6 +172,7 @@ public class CrearParteController extends Controller implements Initializable {
         ventanaPartes.setBackground(new Background(new BackgroundFill(Color.rgb(190, 252, 119), null, null)));
         tipoParteLB.setText("PARTE VERDE DE ADVERTENCIA");
         color = tipoParteDAO.buscar("Verde");
+        sancionSizeLbl.setVisible(true);
 
         sancionCB.setVisible(false);
         sancionCB.setDisable(true);
@@ -186,6 +190,7 @@ public class CrearParteController extends Controller implements Initializable {
         ventanaPartes.setBackground(new Background(new BackgroundFill(Color.ORANGE, null, null)));
         tipoParteLB.setText("PARTE NARANJA DE NOTA NEGATIVA");
         color = tipoParteDAO.buscar("Naranja");
+        sancionSizeLbl.setVisible(true);
 
         sancionCB.setVisible(false);
         sancionCB.setDisable(true);
@@ -203,6 +208,7 @@ public class CrearParteController extends Controller implements Initializable {
         ventanaPartes.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
         tipoParteLB.setText("PARTE ROJO DE NOTA NEGATIVA");
         color = tipoParteDAO.buscar("Rojo");
+        sancionSizeLbl.setVisible(false);
 
         //comprobamos si el usuario es jefe de estudios o no para mostrar unos componentes o no
         sancionTArea.setVisible(usuarioNoEsJefeDeEstudios);
@@ -212,6 +218,7 @@ public class CrearParteController extends Controller implements Initializable {
         sancionCB.setDisable(usuarioNoEsJefeDeEstudios);
 
         otrasancionTF.setVisible(sancionCB.getValue() != null && sancionCB.getValue().equals("Otra sanción"));
+        otraSancionSize.setVisible(sancionCB.getValue() != null && sancionCB.getValue().equals("Otra sanción"));
         otrasancionTF.setDisable(usuarioNoEsJefeDeEstudios);
 
 
@@ -220,6 +227,7 @@ public class CrearParteController extends Controller implements Initializable {
             sancionTArea.setVisible(false);
             sancionTArea.setDisable(true);
             sancionLb.setVisible(false);
+            sancionSizeLbl.setVisible(false);
         }
     }
 
@@ -230,9 +238,11 @@ public class CrearParteController extends Controller implements Initializable {
             if (sancionCB.getValue().equals("Otra sanción")){
                 otrasancionTF.setVisible(true);
                 otrasancionTF.setDisable(false);
+                otraSancionSize.setVisible(true);
             } else {
                 otrasancionTF.setDisable(true);
                 otrasancionTF.setVisible(false);
+                otraSancionSize.setVisible(false);
             }
         }
     }
@@ -249,5 +259,32 @@ public class CrearParteController extends Controller implements Initializable {
         profesorTField.setText(R.profesorActual.toString());
         horaCB.getItems().addAll(R.horas);
         sancionCB.getItems().addAll(R.tiposSancion);
+    }
+
+    public void onDescType(KeyEvent keyEvent) {
+        int size = descripcionTArea.getText().length();
+        if (size>255){
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "El campo especificado no puede tener mas de 255 caracteres", "Error de texto");
+            descripcionTArea.setText(descripcionTArea.getText().substring(0, 255));
+        }
+        descSizeLbl.setText(descripcionTArea.getText().length()+ "/255");
+    }
+
+    public void onSancionType(KeyEvent keyEvent) {
+        int size = sancionTArea.getText().length();
+        if (size>255){
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "El campo especificado no puede tener mas de 255 caracteres", "Error de texto");
+            sancionTArea.setText(sancionTArea.getText().substring(0, 255));
+        }
+        sancionSizeLbl.setText(sancionTArea.getText().length()+ "/255");
+    }
+
+    public void onOtraSancionTyped(KeyEvent keyEvent) {
+        int size = otrasancionTF.getText().length();
+        if (size>255){
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "El campo especificado no puede tener mas de 255 caracteres", "Error de texto");
+            otrasancionTF.setText(otrasancionTF.getText().substring(0, 255));
+        }
+        otraSancionSize.setText(otrasancionTF.getText().length()+ "/255");
     }
 }

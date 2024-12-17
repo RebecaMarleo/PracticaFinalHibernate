@@ -51,7 +51,7 @@ public class MenuController extends Controller implements Initializable {
     @FXML
     void onLogoutClick(ActionEvent event) {
         R.profesorActual = null;
-        JavaFxUtils.abrirPantallaEnStage(((Stage) this.listaPartesBtt.getScene().getWindow()), "Login.fxml", "Iniciar sesión");
+        JavaFxUtils.abrirPantallaEnStage(((Stage) this.listaPartesBtt.getScene().getWindow()), "LogIn.fxml", "Iniciar sesión");
     }
 
     @Override

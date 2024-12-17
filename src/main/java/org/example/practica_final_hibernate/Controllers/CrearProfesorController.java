@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.controlsfx.validation.ValidateEvent;
 import org.example.practica_final_hibernate.DAO.DAO;
@@ -18,6 +19,8 @@ import java.util.ResourceBundle;
 
 public class CrearProfesorController extends Controller implements Initializable {
 
+    public Label nameSizeLbl;
+    public Label passSizeLbl;
     @FXML
     private TextField nombreTF;
 
@@ -132,5 +135,22 @@ public class CrearProfesorController extends Controller implements Initializable
             valido = false;
         }
         return valido;
+    }
+
+    public void onNameTyped(KeyEvent keyEvent) {
+        checkField(nombreTF, nameSizeLbl);
+    }
+
+    public void onPassTyped(KeyEvent keyEvent) {
+        checkField(passTF, passSizeLbl);
+    }
+
+    public void checkField(TextField tf, Label lb){
+        int size = tf.getText().length();
+        if (size>255){
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "El campo especificado no puede tener mas de 255 caracteres", "Error de texto");
+            tf.setText(tf.getText().substring(0, 255));
+        }
+        lb.setText(tf.getText().length()+ "/255");
     }
 }

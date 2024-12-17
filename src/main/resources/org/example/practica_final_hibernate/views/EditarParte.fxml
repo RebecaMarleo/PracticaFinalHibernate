@@ -29,7 +29,7 @@
         <Label layoutX="437.0" layoutY="99.0" text="Nombre del Grupo:" />
         <Label layoutX="353.0" layoutY="220.0" text="Label" />
         <TextField fx:id="expAlumnoTF" layoutX="224.0" layoutY="96.0" onKeyTyped="#escribir" prefHeight="25.0" prefWidth="189.0" promptText="Escribe el numero de expediente" />
-        <TextArea fx:id="descripcionTArea" layoutX="28.0" layoutY="289.0" prefHeight="112.0" prefWidth="704.0" />
+        <TextArea fx:id="descripcionTArea" layoutX="28.0" layoutY="289.0" onKeyTyped="#onDescType" prefHeight="112.0" prefWidth="669.0" />
         <Button fx:id="crearBtt" layoutX="346.0" layoutY="583.0" mnemonicParsing="false" onAction="#onEditar" style="-fx-background-color: blue;" text="Editar" textFill="WHITE" />
         <DatePicker fx:id="fechaPicker" layoutX="224.0" layoutY="216.0" prefHeight="25.0" prefWidth="189.0" />
         <ComboBox fx:id="profesorCB" layoutX="224.0" layoutY="160.0" prefHeight="25.0" prefWidth="189.0" promptText="Selecciona un Profesor" style="-fx-background-color: white;" />
@@ -45,8 +45,12 @@
                 <Font name="System Bold" size="12.0" />
             </font>
         </Label>
-        <TextArea fx:id="sancionTArea" layoutX="29.0" layoutY="436.0" prefHeight="112.0" prefWidth="704.0" />
+        <TextArea fx:id="sancionTArea" layoutX="29.0" layoutY="436.0" onKeyTyped="#onSancionType" prefHeight="112.0" prefWidth="670.0" />
         <ComboBox fx:id="sancionCB" disable="true" layoutX="29.0" layoutY="436.0" onAction="#onValueChosen" prefHeight="25.0" prefWidth="232.0" visible="false" />
-        <TextField fx:id="otrasancionTF" disable="true" layoutX="30.0" layoutY="467.0" prefHeight="75.0" prefWidth="353.0" visible="false" />
+        <TextField fx:id="otrasancionTF" disable="true" layoutX="30.0" layoutY="467.0" onKeyTyped="#onOtraSancionType" prefHeight="75.0" prefWidth="353.0" visible="false" />
+        <Label fx:id="otraSancionSize" alignment="CENTER" layoutX="391.0" layoutY="497.0" prefHeight="18.0" prefWidth="47.0" text="0/255" visible="false" />
+        <Label fx:id="alumnoLbl" alignment="CENTER" layoutX="222.0" layoutY="122.0" prefHeight="18.0" prefWidth="190.0" textAlignment="CENTER" />
+        <Label fx:id="descSizeLbl" alignment="CENTER" layoutX="701.0" layoutY="338.0" prefHeight="18.0" prefWidth="47.0" text="0/255" />
+        <Label fx:id="sancionSizeLbl" alignment="CENTER" layoutX="699.0" layoutY="485.0" prefHeight="18.0" prefWidth="47.0" text="0/255" />
     </children>
 </AnchorPane>

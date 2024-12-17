@@ -27,6 +27,10 @@ import java.util.Objects;
 
 public class EditarParteController extends Controller{
 
+    public Label sancionSizeLbl;
+    public Label descSizeLbl;
+    public Label otraSancionSize;
+    public Label alumnoLbl;
     private Parte formerParte; //Parte a editar
 
     @FXML
@@ -146,9 +150,11 @@ public class EditarParteController extends Controller{
         if (a!=null){
             grupo = a.getGrupo();
             grupoTF.setText(grupo.getNombre());
+            alumnoLbl.setText("(" + a.getNombre() + ")");
         } else {
             grupo = null;
             grupoTF.setText("");
+            alumnoLbl.setText("");
         }
     }
 
@@ -267,6 +273,32 @@ public class EditarParteController extends Controller{
         horaCB.setValue(parte.getHora());
         fechaPicker.setValue(parte.getFecha());
         profesorCB.setValue(parte.getProfesor());
-
     }
+    public void onDescType(KeyEvent keyEvent) {
+        int size = descripcionTArea.getText().length();
+        if (size>255){
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "El campo especificado no puede tener mas de 255 caracteres", "Error de texto");
+            descripcionTArea.setText(descripcionTArea.getText().substring(0, 255));
+        }
+        descSizeLbl.setText(descripcionTArea.getText().length()+ "/255");
+    }
+
+    public void onSancionType(KeyEvent keyEvent) {
+        int size = sancionTArea.getText().length();
+        if (size>255){
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "El campo especificado no puede tener mas de 255 caracteres", "Error de texto");
+            sancionTArea.setText(sancionTArea.getText().substring(0, 255));
+        }
+        sancionSizeLbl.setText(sancionTArea.getText().length()+ "/255");
+    }
+
+    public void onOtraSancionType(KeyEvent keyEvent) {
+        int size = otrasancionTF.getText().length();
+        if (size>255){
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "El campo especificado no puede tener mas de 255 caracteres", "Error de texto");
+            otrasancionTF.setText(otrasancionTF.getText().substring(0, 255));
+        }
+        otraSancionSize.setText(otrasancionTF.getText().length()+ "/255");
+    }
+
 }
