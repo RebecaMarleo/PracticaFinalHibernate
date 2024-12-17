@@ -211,7 +211,7 @@ public class CrearParteController extends Controller implements Initializable {
         sancionCB.setVisible(!usuarioNoEsJefeDeEstudios);
         sancionCB.setDisable(usuarioNoEsJefeDeEstudios);
 
-        otrasancionTF.setVisible(false);
+        otrasancionTF.setVisible(sancionCB.getValue() != null && sancionCB.getValue().equals("Otra sanción"));
         otrasancionTF.setDisable(usuarioNoEsJefeDeEstudios);
 
 
