@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="538.0" prefWidth="752.0" stylesheets="@mainStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.practica_final_hibernate.Controllers.ListarPartesController">
+<AnchorPane prefHeight="538.0" prefWidth="752.0" stylesheets="@mainStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.practica_final_hibernate.Controllers.ListarPartesController">
     <children>
         <fx:include source="Menu.fxml" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#88c0f5" height="105.0" layoutX="132.0" layoutY="73.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="483.0" />
@@ -36,7 +36,7 @@
       <DatePicker fx:id="filterDPicker" layoutX="147.0" layoutY="143.0" />
       <ChoiceBox fx:id="horaCBox" layoutX="321.0" layoutY="143.0" prefHeight="25.0" prefWidth="174.0" />
       <Pagination fx:id="partesPagination" layoutX="29.0" layoutY="207.0" prefHeight="222.0" prefWidth="687.0" />
-      <TableView fx:id="partesTView" layoutX="45.0" layoutY="226.0" onMouseClicked="#seleccionarParte" prefHeight="147.0" prefWidth="664.0">
+      <TableView fx:id="partesTView" layoutX="45.0" layoutY="226.0" onMouseClicked="#seleccionarParte" prefHeight="150.0" prefWidth="664.0">
         <columns>
           <TableColumn fx:id="expTCol" prefWidth="97.0" text="Expediente" />
           <TableColumn fx:id="nombreTCol" prefWidth="111.0" text="Nombre del Alumno" />

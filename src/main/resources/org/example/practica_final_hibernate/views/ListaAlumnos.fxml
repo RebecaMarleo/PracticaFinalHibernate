@@ -13,9 +13,9 @@
 <AnchorPane prefHeight="538.0" prefWidth="752.0" stylesheets="@mainStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.practica_final_hibernate.Controllers.ListarAlumnosController">
     <children>
         <fx:include source="Menu.fxml" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#88c0f5" height="229.0" layoutX="32.0" layoutY="214.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="687.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#88c0f5" height="229.0" layoutX="32.0" layoutY="207.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="687.0" />
       <Pagination fx:id="alumnosPagination" layoutX="29.0" layoutY="207.0" prefHeight="222.0" prefWidth="687.0" />
-      <TableView fx:id="alumnosTView" layoutX="45.0" layoutY="226.0" prefHeight="147.0" prefWidth="664.0">
+      <TableView fx:id="alumnosTView" layoutX="45.0" layoutY="226.0" prefHeight="150.0" prefWidth="664.0">
          <columns>
             <TableColumn fx:id="expTCol" prefWidth="97.0" text="Número de Expediente" />
             <TableColumn fx:id="nombreTCol" prefWidth="111.0" text="Nombre del Alumno" />

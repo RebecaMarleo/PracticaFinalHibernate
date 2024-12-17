@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import org.example.practica_final_hibernate.DAO.AlumnoDAO;
 import org.example.practica_final_hibernate.DAO.TipoParteDAO;
 import org.example.practica_final_hibernate.Model.Alumno;
