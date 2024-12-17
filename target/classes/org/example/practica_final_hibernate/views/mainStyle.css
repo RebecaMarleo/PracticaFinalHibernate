@@ -1,0 +1,9 @@
+.root{
+   -fx-background-image: url("images/LOGO_RIBERA_DE_CASTILLA/LOGO_TRANSPARENTE_COLOR_GRANDE.png");
+   -fx-background-size: contain;
+   -fx-background-repeat: no-repeat;
+   -fx-background-position: center;
+}
+
+.button:hover{
+}
