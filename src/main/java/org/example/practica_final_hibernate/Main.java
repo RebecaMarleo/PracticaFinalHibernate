@@ -17,7 +17,7 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Iniciar Sesión");
         stage.setScene(scene);
-        stage.getIcons().add(new Image(R.getResource("images/LOGO_RIBERA_DE_CASTILLA/LOGO_COLOR_PEQUEÑO.png").toString()));
+        stage.getIcons().add(new Image(R.getResource("images/LOGO_RIBERA_DE_CASTILLA/LOGO_COLOR_MEDIANO.png").toString()));
         stage.show();
     }
 

@@ -19,7 +19,7 @@ public class JavaFxUtils {
             Scene scene = new Scene(loader.load()); //Carga el loader en una escena
             stage.setTitle(titulo); //Cambia el título
             stage.setScene(scene);  //Cambia la escena
-            stage.getIcons().add(new Image(R.getResource("images/LOGO_RIBERA_DE_CASTILLA/LOGO_COLOR_PEQUEÑO.png").toString()));
+            stage.getIcons().add(new Image(R.getResource("images/LOGO_RIBERA_DE_CASTILLA/LOGO_COLOR_MEDIANO.png").toString()));
             return loader.getController();
         }catch (Exception e){ //Por si hay un fallo cargando el XML:
             mostrarAlert(Alert.AlertType.ERROR, "No se ha podido acceder a la ruta especificada", "Error de FXML");
@@ -32,6 +32,7 @@ public class JavaFxUtils {
         alert.setTitle(titulo); //Se pone el titulo
         alert.setContentText(mensaje); //Se pone el mensaje
         alert.setHeaderText(null); //Alert sin cabecera
+        ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image(R.getResource("images/LOGO_RIBERA_DE_CASTILLA/LOGO_COLOR_MEDIANO.png").toString()));
         return alert.showAndWait(); //Devuelve el botón que pulse el usuario (Por si acaso necesitamos hacer confirmaciones)
     }
 

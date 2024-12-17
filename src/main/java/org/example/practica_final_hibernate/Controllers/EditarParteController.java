@@ -94,8 +94,9 @@ public class EditarParteController extends Controller{
     @FXML
     void onEditar(ActionEvent event) {
         if (expAlumnoTF.getText().isEmpty() || profesorCB.getValue() == null || fechaPicker.getValue() == null || grupoTF.getText().isEmpty() || horaCB.getValue() == null || descripcionTArea.getText().isEmpty()){
-            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "No se han rellenado todos los campos", "Erro de campos");
+            JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "No se han rellenado todos los campos", "Erro de campos"); //No se ha rellenado lo necesario
         } else {
+            //Se guardan los valores
             String expediente = expAlumnoTF.getText();
             Profesor profesor = profesorCB.getValue();
             LocalDate fecha = fechaPicker.getValue();
@@ -110,42 +111,32 @@ public class EditarParteController extends Controller{
             if (alumno == null) {
                 JavaFxUtils.mostrarAlert(Alert.AlertType.ERROR, "Alumno no encontrado en la base de datos", "Error alumno");
             } else {
+                Parte parte;
                 if (Objects.equals(color.getColor(), "Verde") || Objects.equals(color.getColor(), "Naranja")) {
-                    Parte parte = new Parte(descripcion, sancion, fecha, hora, color, alumno, grupo, profesor);
-                    parte.setId(formerParte.getId());
-                    parteDAO.modificar(parte);
-                    JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte editado con éxito!", "");
-                    closeWindow();
-                } else if (Objects.equals(color.getColor(), "Rojo") && !usuarioNoEsJefeDeEstudios) {
-                    if (sancionCB.getValue().equals("Otra sanción")) {
-                        Parte parteOtra = new Parte(descripcion, otraSancion, fecha, hora, color, alumno, grupo, profesorCB.getValue());
-                        parteOtra.setId(formerParte.getId());
-                        parteDAO.modificar(parteOtra);
-                    } else {
-                        Parte parte = new Parte(descripcion, sancionRoja, fecha, hora, color, alumno, grupo, profesorCB.getValue());
-                        parte.setId(formerParte.getId());
-                        parteDAO.modificar(parte);
+                    parte = new Parte(descripcion, sancion, fecha, hora, color, alumno, grupo, profesor); //Si el color es verde o naranja, coge los datos que ve
+                } else if (Objects.equals(color.getColor(), "Rojo") && !usuarioNoEsJefeDeEstudios) { //Si es roja y el usuario es jefe de estudios:
+                    if (sancionCB.getValue().equals("Otra sanción")) { //Si se ha puesto la opcion "otra sancion", se añade el campo de la sancion
+                        parte = new Parte(descripcion, otraSancion, fecha, hora, color, alumno, grupo, profesor);
+                    } else { //Si se ha elegido una opción el combobox
+                        parte = new Parte(descripcion, sancionRoja, fecha, hora, color, alumno, grupo, profesor);
                     }
-
-                    JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte editado con éxito!", "");
-                    closeWindow();
-                } else {
-                    Parte parte = new Parte(descripcion, "", fecha, hora, color, alumno, grupo, formerParte.getProfesor());
-                    parte.setId(formerParte.getId());
-                    parteDAO.modificar(parte);
-
-                    JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte editado con éxito!", "");
-                    closeWindow();
+                } else { //Si el usuaro no es jefe de estudios y elige rojo, deja la sanción vacía
+                    parte = new Parte(descripcion, "", fecha, hora, color, alumno, grupo, profesor);
                 }
+                parte.setId(formerParte.getId());
+                parteDAO.modificar(parte);
+                //Se resta al alumno el valor del parte anterior y se suma el nuevo (Si el parte era rojo y ahora es verde, se restan 12 y se suma 1)
                 alumno.setPuntos(alumno.getPuntos() + color.getPuntuacion() - formerParte.getColor().getPuntuacion());
                 alumnoDAO.modificar(alumno);
                 formerController.refresh();
+                JavaFxUtils.mostrarAlert(Alert.AlertType.INFORMATION, "Parte editado con éxito!", "Edición de partes");
+                closeWindow();
             }
         }
     }
 
     private void closeWindow() {
-        ((Stage) this.ventanaPartes.getScene().getWindow()).close();
+        ((Stage) this.ventanaPartes.getScene().getWindow()).close(); //Se cierra esta ventana
     }
 
     @FXML
