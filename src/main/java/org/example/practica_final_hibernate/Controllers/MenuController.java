@@ -11,7 +11,7 @@ import org.example.practica_final_hibernate.Util.R;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MenuController implements Initializable {
+public class MenuController extends Controller implements Initializable {
 
     @FXML
     private Button CrearParteBtt;
@@ -30,28 +30,28 @@ public class MenuController implements Initializable {
 
     @FXML
     void onCrearParte(ActionEvent event) {
-        JavaFxUtils.abrirPantalla(((Stage) this.CrearParteBtt.getScene().getWindow()), "CrearParte.fxml", "Crear Parte");
+        JavaFxUtils.abrirPantallaEnStage(((Stage) this.CrearParteBtt.getScene().getWindow()), "CrearParte.fxml", "Crear Parte");
     }
 
     @FXML
     void onCrearProfesor(ActionEvent event) {
-        JavaFxUtils.abrirPantalla(((Stage) this.crearProfesorBtt.getScene().getWindow()), "CrearProfesor.fxml", "Crear Profesor");
+        JavaFxUtils.abrirPantallaEnStage(((Stage) this.crearProfesorBtt.getScene().getWindow()), "CrearProfesor.fxml", "Crear Profesor");
     }
 
     @FXML
     void onListaAlumnos(ActionEvent event) {
-        JavaFxUtils.abrirPantalla(((Stage) this.listaAlumnosBtt.getScene().getWindow()), "ListaAlumnos.fxml", "Listado de Alumnos");
+        JavaFxUtils.abrirPantallaEnStage(((Stage) this.listaAlumnosBtt.getScene().getWindow()), "ListaAlumnos.fxml", "Listado de Alumnos");
     }
 
     @FXML
     void onListaPartes(ActionEvent event) {
-        JavaFxUtils.abrirPantalla(((Stage) this.listaPartesBtt.getScene().getWindow()), "ListaPartes.fxml", "Listado de Partes");
+        JavaFxUtils.abrirPantallaEnStage(((Stage) this.listaPartesBtt.getScene().getWindow()), "ListaPartes.fxml", "Listado de Partes");
     }
 
     @FXML
     void onLogoutClick(ActionEvent event) {
         R.profesorActual = null;
-        JavaFxUtils.abrirPantalla(((Stage) this.listaPartesBtt.getScene().getWindow()), "Login.fxml", "Iniciar sesión");
+        JavaFxUtils.abrirPantallaEnStage(((Stage) this.listaPartesBtt.getScene().getWindow()), "Login.fxml", "Iniciar sesión");
     }
 
     @Override

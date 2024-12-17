@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import org.example.practica_final_hibernate.DAO.ParteDAO;
 import org.example.practica_final_hibernate.Model.Parte;
+import org.example.practica_final_hibernate.Util.JavaFxUtils;
 import org.example.practica_final_hibernate.Util.R;
 
 import java.net.URL;
@@ -18,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ListarPartesController implements Initializable {
+public class ListarPartesController extends Controller implements Initializable {
 
     @FXML
     private Button buscarBtt;
@@ -71,7 +72,7 @@ public class ListarPartesController implements Initializable {
 
     @FXML
     void onBuscarPorFecha(ActionEvent event) {
-        filtroFechaHora = (filterDPicker.getValue()!=null || horaCBox.getValue()!=null); //True si alguno de los campos tiene valor
+        filtroFechaHora = (filterDPicker.getValue()!=null || !horaCBox.getValue().equals("Sin filtrar")); //True si alguno de los campos tiene valor
         prepareTable();
     }
 
@@ -81,13 +82,21 @@ public class ListarPartesController implements Initializable {
         prepareTable();
     }
 
+    public void refresh(){
+        listaPartes = parteDAO.listar(); //Saca la lista de partes
+
+        prepareTable(); //Se prepara la tabla
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //DAO
         parteDAO = new ParteDAO();
 
+        List<String> horaList = new ArrayList<>(R.horas);
+        horaList.add("Sin filtrar");
         //ComboBox
-        horaCBox.setItems(FXCollections.observableList(R.horas)); //Meto la lista estática del horario del centro
+        horaCBox.setItems(FXCollections.observableList(horaList)); //Meto la lista estática del horario del centro
+        horaCBox.setValue("Sin filtrar");
 
         //TableView
         nombreTCol.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getAlumno().getNombre()));
@@ -108,10 +117,7 @@ public class ListarPartesController implements Initializable {
                 }
             }
         });
-        listaPartes = parteDAO.listar(); //Saca la lista de partes
-
-        prepareTable(); //Se prepara la tabla
-
+        refresh();
         //Añado un Listener a las páginas del Pagination, el cual se activa al dar a pasar página
         partesPagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
             actualizarTabla(); //Pasa página
@@ -128,10 +134,10 @@ public class ListarPartesController implements Initializable {
                 partesIterator.remove();
             } else {
                 if (filtroFechaHora) { //Si el filtro de la hora está activado:
-                    if (filterDPicker.getValue()!=null && parte.getFecha()!=filterDPicker.getValue()){
+                    if (filterDPicker.getValue()!=null && !parte.getFecha().equals(filterDPicker.getValue())){
                         //Si el campo de fecha tiene valor y este no coincide con la fecha de la ocurrencia, la borra
                         partesIterator.remove();
-                    } else if(horaCBox.getValue()!=null && !horaCBox.getValue().equals(parte.getHora())){
+                    } else if(!horaCBox.getValue().equals("Sin filtrar") && !horaCBox.getValue().equals(parte.getHora())){
                         //Si el campo de la hora tiene valor y este no coincide con la hora de la ocurrencia, la borra
                         partesIterator.remove();
                     }
@@ -144,15 +150,30 @@ public class ListarPartesController implements Initializable {
     }
 
     private void actualizarTabla() { //Funcion encargada de actualizar la tabla tras cambiar de página o filtrar
-        int indice = partesPagination.getCurrentPageIndex(); //Coge el índice de la lista
-        int tope = ((indice*5)+5>=listaFiltrada.size())? (listaFiltrada.size()):(indice*5)+5;
+        try {
+            int indice = partesPagination.getCurrentPageIndex(); //Coge el índice de la lista
+            int tope = ((indice * 5) + 5 >= listaFiltrada.size()) ? (listaFiltrada.size()) : (indice * 5) + 5;
         /* Calculo un tope:
         Viendo que, al hacer la sublista para que solo me saque x números, saba error al poner indice*5+5 por tener más longitud que la lista,
         hice lo siguiente:
             - Si el indice * 5 + 5 no supera el tamaño de la lista, se usa para la sublista
             - Si no, se usa el tamaño de la lista.
          */
-        partesTView.setItems(FXCollections.observableArrayList(listaFiltrada.subList((indice*5), (indice*5+5)))); //Muestra una sublista desde un punto de la tabla hasta 4 posiciones más adelante (0-4, 5-9...)
+            partesTView.setItems(FXCollections.observableArrayList(listaFiltrada.subList((indice * 5), tope))); //Muestra una sublista desde un punto de la tabla hasta 4 posiciones más adelante (0-4, 5-9...)
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void seleccionarParte(){
+        Parte parte = partesTView.getSelectionModel().getSelectedItem();
+        if (parte!=null){
+            VerParteController controller = (VerParteController) JavaFxUtils.abrirPantallaEnNuevoStage("VerParte.fxml", "Parte de " + parte.getAlumno().getNombre());
+            if (controller!=null) {
+                controller.iniciar(parte, this);
+            }
+        }
     }
 }
 

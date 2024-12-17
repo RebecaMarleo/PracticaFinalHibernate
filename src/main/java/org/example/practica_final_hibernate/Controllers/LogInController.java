@@ -17,7 +17,7 @@ import org.example.practica_final_hibernate.Util.R;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LogInController implements Initializable {
+public class LogInController extends Controller implements Initializable {
 
     ProfesorDAO profesorDAO;
 
@@ -51,7 +51,7 @@ public class LogInController implements Initializable {
             } else {
                 R.profesorActual = profesor; //Guardo el usuario para su uso en otras clases
                 Stage st = (Stage) this.logBtt.getScene().getWindow();
-                JavaFxUtils.abrirPantalla(st, "CrearParte.fxml", "Crear Parte");
+                JavaFxUtils.abrirPantallaEnStage(st, "CrearParte.fxml", "Crear");
             }
         }
     }
