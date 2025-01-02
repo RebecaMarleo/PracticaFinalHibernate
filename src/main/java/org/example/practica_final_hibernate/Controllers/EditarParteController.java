@@ -8,9 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.example.practica_final_hibernate.DAO.AlumnoDAO;
@@ -32,6 +30,11 @@ public class EditarParteController extends Controller{
     public Label otraSancionSize;
     public Label alumnoLbl;
     private Parte formerParte; //Parte a editar
+    public HBox fechaHoraHBox;
+    public HBox profeHBox;
+    public HBox expGroupHBox;
+    public HBox ButtonsHBox;
+    public HBox sancionHBox;
 
     @FXML
     private Button NaranjaBtt;
@@ -79,7 +82,7 @@ public class EditarParteController extends Controller{
     private Label sancionLb;
 
     @FXML
-    private AnchorPane ventanaPartes;
+    private VBox ventanaPartes;
 
     boolean usuarioNoEsJefeDeEstudios = !R.profesorActual.getTipo().equals("Jefe de Estudios");
 
@@ -172,6 +175,8 @@ public class EditarParteController extends Controller{
 
         otrasancionTF.setDisable(true);
         otrasancionTF.setVisible(false);
+
+        otraSancionSize.setVisible(false);
     }
 
     @FXML
@@ -188,6 +193,8 @@ public class EditarParteController extends Controller{
 
         otrasancionTF.setDisable(true);
         otrasancionTF.setVisible(false);
+
+        otraSancionSize.setVisible(false);
     }
 
     @FXML
@@ -209,9 +216,11 @@ public class EditarParteController extends Controller{
             if (sancionCB.getValue().equals("Otra sanción")){
                 otrasancionTF.setVisible(true);
                 otrasancionTF.setDisable(false);
+                otraSancionSize.setVisible(true);
             } else {
                 otrasancionTF.setDisable(true);
                 otrasancionTF.setVisible(false);
+                otraSancionSize.setVisible(false);
             }
         }
 
@@ -228,14 +237,25 @@ public class EditarParteController extends Controller{
             if (sancionCB.getValue().equals("Otra sanción")){
                 otrasancionTF.setVisible(true);
                 otrasancionTF.setDisable(false);
+                otraSancionSize.setVisible(true);
             } else {
                 otrasancionTF.setDisable(true);
                 otrasancionTF.setVisible(false);
+                otraSancionSize.setVisible(false);
             }
         }
     }
 
     public void setItems(Parte parte, ListarPartesController listarPartesController){
+        ventanaPartes.heightProperty().addListener(((observableValue, oldValue, newValue) -> {
+            ventanaPartes.setSpacing(newValue.doubleValue()*0.01);
+        }));
+        ventanaPartes.widthProperty().addListener(((observableValue, oldValue, newValue) -> {
+            sancionHBox.setSpacing(newValue.doubleValue()*0.03);
+            expGroupHBox.setSpacing(newValue.doubleValue()*0.01);
+            fechaHoraHBox.setSpacing(newValue.doubleValue()*0.01);
+            profeHBox.setSpacing(newValue.doubleValue()*0.01);
+        }));
         this.formerController = listarPartesController;
         this.formerParte = parte;
         parteDAO = new ParteDAO();
@@ -265,6 +285,7 @@ public class EditarParteController extends Controller{
             } else {
                 sancionCB.setValue("Otra sanción");
                 onValueChosen(null);
+                otraSancionSize.setVisible(true);
                 otrasancionTF.setText(parte.getSancion());
             }
         } else {

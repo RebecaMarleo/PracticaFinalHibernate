@@ -43,7 +43,7 @@ public class ListarPartesController extends Controller implements Initializable 
     private TableColumn<Parte, String> grupoTCol;
 
     @FXML
-    private ChoiceBox<String> horaCBox;
+    private ComboBox<String> horaCBox;
 
     @FXML
     private TableColumn<Parte, String> nombreTCol;
@@ -71,13 +71,13 @@ public class ListarPartesController extends Controller implements Initializable 
     private boolean filtroFechaHora = false;
 
     @FXML
-    void onBuscarPorFecha(ActionEvent event) {
+    void onBuscarPorFecha() {
         filtroFechaHora = (filterDPicker.getValue()!=null || !horaCBox.getValue().equals("Sin filtrar")); //True si alguno de los campos tiene valor
         prepareTable();
     }
 
     @FXML
-    void onBuscarPorNumExp(ActionEvent event) {
+    void onBuscarPorNumExp() {
         filtroExpediente = !expedienteTField.getText().isEmpty(); //True si tiene texto
         prepareTable();
     }
@@ -174,6 +174,11 @@ public class ListarPartesController extends Controller implements Initializable 
                 controller.iniciar(parte, this);
             }
         }
+    }
+
+    public void onBorrarFecha(ActionEvent actionEvent) {
+        filterDPicker.setValue(null);
+        onBuscarPorFecha();
     }
 }
 

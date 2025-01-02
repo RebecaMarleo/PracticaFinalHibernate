@@ -16,13 +16,22 @@ public class JavaFxUtils {
     public static Controller abrirPantallaEnStage(Stage stage, String ruta, String titulo){
         try{
             FXMLLoader loader = new FXMLLoader(R.getResource(ruta)); //Hace un loader con la ruta que recibe por parámetro
+            double width = stage.getWidth();
+            double height = stage.getHeight();
+            if (stage.getTitle().contains("Parte de")){
+                width = 800;
+                height = 640;
+            }
             Scene scene = new Scene(loader.load()); //Carga el loader en una escena
             stage.setTitle(titulo); //Cambia el título
             stage.setScene(scene);  //Cambia la escena
             stage.getIcons().add(new Image(R.getResource("images/LOGO_RIBERA_DE_CASTILLA/LOGO_COLOR_MEDIANO.png").toString()));
+
+            stage.setHeight(height);
+            stage.setWidth(width);
             return loader.getController();
         }catch (Exception e){ //Por si hay un fallo cargando el XML:
-            mostrarAlert(Alert.AlertType.ERROR, "No se ha podido acceder a la ruta especificada", "Error de FXML");
+            mostrarAlert(Alert.AlertType.ERROR, "No se ha podido acceder a la ruta especificada ", "Error de FXML");
         }
         return null;
     }
@@ -47,7 +56,7 @@ public class JavaFxUtils {
             stage.show();
             return loader.getController();
         }catch (Exception e){ //Por si hay un fallo cargando el XML:
-            mostrarAlert(Alert.AlertType.ERROR, "No se ha podido acceder a la ruta especificada", "Error de FXML");
+            mostrarAlert(Alert.AlertType.ERROR, "No se ha podido acceder a la ruta especificada" + e.getMessage(), "Error de FXML");
         }
         return null;
     }

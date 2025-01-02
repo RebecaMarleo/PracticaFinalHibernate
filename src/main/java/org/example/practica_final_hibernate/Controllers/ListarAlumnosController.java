@@ -59,7 +59,7 @@ public class ListarAlumnosController extends Controller implements Initializable
     boolean filtrada = false;
 
     @FXML
-    void onBuscarPorNumExp(ActionEvent event) {
+    void onBuscarPorNumExp() {
         filtrada = !expedienteTField.getText().isEmpty(); //True si el campo tiene texto
         prepareTable();
     }

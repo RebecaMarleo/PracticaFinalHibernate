@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.example.practica_final_hibernate.Util.JavaFxUtils;
 import org.example.practica_final_hibernate.Util.R;
@@ -13,6 +14,7 @@ import java.util.ResourceBundle;
 
 public class MenuController extends Controller implements Initializable {
 
+    public HBox menuBoxRoot;
     @FXML
     private Button CrearParteBtt;
 
@@ -66,6 +68,17 @@ public class MenuController extends Controller implements Initializable {
         listaAlumnosBtt.setVisible(!usuarioNoEsJefeDeEstudios);
         listaPartesBtt.setDisable(usuarioNoEsJefeDeEstudios);
         listaPartesBtt.setVisible(!usuarioNoEsJefeDeEstudios);
+        menuBoxRoot.widthProperty().addListener((observable, oldValue, newValue) -> {
+            // Update the spacing based on the new width
+            double newSpacing = newValue.doubleValue() * 0.05;
+            menuBoxRoot.setSpacing(newSpacing);
+            double fontSize = newValue.doubleValue() * 0.015;
+            CrearParteBtt.setStyle("-fx-font-size: " + fontSize + "px; -fx-background-color:transparent");
+            listaAlumnosBtt.setStyle("-fx-font-size: " + fontSize + "px; -fx-background-color:transparent");
+            listaPartesBtt.setStyle("-fx-font-size: " + fontSize + "px; -fx-background-color:transparent");
+            crearProfesorBtt.setStyle("-fx-font-size: " + fontSize + "px; -fx-background-color:transparent");
+            logoutBtt.setStyle("-fx-font-size: " + fontSize + "px; -fx-background-color:red; -fx-text-fill:white");
+        });
     }
 }
 
