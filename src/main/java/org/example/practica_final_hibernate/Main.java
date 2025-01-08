@@ -14,9 +14,6 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        while (HibernateUtils.getSessionFactory()==null){
-
-        }
         FXMLLoader fxmlLoader = new FXMLLoader(R.getResource("LogIn.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800.0, 640.0);
         stage.setTitle("Iniciar Sesión");
